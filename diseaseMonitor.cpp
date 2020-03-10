@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <stdlib.h> //atoi
 #include <cstring> //strcpy gia ta pathings. genika oxi idiaitera
 
@@ -32,5 +33,10 @@ int main(int argc, char *argv[]){
 
   } //telos for command line args
   std::cout << "params are: " << dataset_path << " " << diseaseHashtableNumOfEntries << " " << countryHashtableNumOfEntries << " " << bucketSize << "\n";
-
+  std::ifstream infile(dataset_path); //diabasma apo tis grammes tou arxeiou
+  std::string line;
+  while (std::getline(infile, line)){ //read file
+      std::cout << line;
+    }
+  return 0;
 }

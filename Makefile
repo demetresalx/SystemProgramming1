@@ -22,7 +22,7 @@ test:
 	$(CC) -o $(TESTEXEC) $(TESTSOURCE)
 
 run:
-	./$(EXECUTABLE) -p /home/demetres/Documents/sxoli/SYSPRO/FINAL_20/inputs/ass1_records.txt -h1 40 -h2 41 -b 20
+	./$(EXECUTABLE) -p ../inputs/ass1_records.txt -h1 40 -h2 41 -b 20
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE) $(TESTEXEC)
