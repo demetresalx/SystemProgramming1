@@ -1,9 +1,9 @@
 CC=g++  -std=c++11
 CFLAGS=-c -Wpedantic -Ofast
 LDFLAGS=
-SOURCES=cluster.cpp my_vector.cpp curve.cpp curve_point.cpp cluster_object.cpp ht.cpp h_funs.cpp g_funs.cpp NNpair.cpp grid.cpp curve_ht.cpp
+SOURCES=diseaseMonitor.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=cluster
+EXECUTABLE=diseaseMonitor
 TESTSOURCE=ourunit.cpp
 TESTEXEC=ourunit
 
@@ -21,8 +21,10 @@ $(EXECUTABLE): $(OBJECTS)
 test:
 	$(CC) -o $(TESTEXEC) $(TESTSOURCE)
 
-runtest:
-	./$(TESTEXEC)
+run:
+	./$(EXECUTABLE) -p /home/demetres/Documents/sxoli/SYSPRO/FINAL_20/inputs/ass1_records.txt -h1 40 -h2 41 -b 20
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE) $(TESTEXEC)
+
+#./diseaseMonitor -p /home/demetres/Documents/sxoli/SYSPRO/FINAL_20/inputs/ass1_records.txt -h1 40 -h2 41 -b 20
