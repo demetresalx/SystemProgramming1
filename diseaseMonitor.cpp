@@ -32,17 +32,25 @@ int main(int argc, char *argv[]){
     }
 
   } //telos for command line args
-  std::cout << "params are: " << dataset_path << " " << diseaseHashtableNumOfEntries << " " << countryHashtableNumOfEntries << " " << bucketSize << "\n";
+  //std::cout << "params are: " << dataset_path << " " << diseaseHashtableNumOfEntries << " " << countryHashtableNumOfEntries << " " << bucketSize << "\n";
   std::ifstream infile(dataset_path); //diabasma apo tis grammes tou arxeiou
   std::string line; //EPITREPETAI H STRING EIPAN STO PIAZZA
   while (std::getline(infile, line)){ //read file
     //  std::cout << line;
     std::stringstream check1(line);
     std::string intermediate;
-    while (getline(check1, intermediate, ' ')){ ///tokenize basei kenou
+    /*while (getline(check1, intermediate, ' ')){ ///tokenize basei kenou
         //std::cout << intermediate <<"_"; //to intermediate exei kathe leksh kathe fora (dedomenou oti xwrizontai me keno)
+    }*/
+    //https://stackoverflow.com/questions/49201654/splitting-a-string-with-multiple-delimiters-in-c
+    std::string const delims{ " \t," }; //delimiters einai to space,tab,comma. TELOS.
+    size_t beg, pos = 0;
+    while ((beg = line.find_first_not_of(delims, pos)) != std::string::npos){
+        pos = line.find_first_of(delims, beg + 1);
+        std::cout << line.substr(beg, pos - beg) << "_";
     }
-    //std::cout << "\n";
+    std::cout << "\n";
   }
+
   return 0;
 }
