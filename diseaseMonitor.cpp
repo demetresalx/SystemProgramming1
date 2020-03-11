@@ -1,6 +1,6 @@
 //MAIN ARXEIO. Apo edw trexei h efarmogh.
 #include <iostream>
-#include <string>
+#include <string> //EPITREPETAI EIPWTHHKE STO PIAZZA
 #include <sstream>
 #include <fstream>
 #include <stdlib.h> //atoi
@@ -34,9 +34,15 @@ int main(int argc, char *argv[]){
   } //telos for command line args
   std::cout << "params are: " << dataset_path << " " << diseaseHashtableNumOfEntries << " " << countryHashtableNumOfEntries << " " << bucketSize << "\n";
   std::ifstream infile(dataset_path); //diabasma apo tis grammes tou arxeiou
-  std::string line;
+  std::string line; //EPITREPETAI H STRING EIPAN STO PIAZZA
   while (std::getline(infile, line)){ //read file
-      std::cout << line;
+    //  std::cout << line;
+    std::stringstream check1(line);
+    std::string intermediate;
+    while (getline(check1, intermediate, ' ')){ ///tokenize basei kenou
+        //std::cout << intermediate <<"_"; //to intermediate exei kathe leksh kathe fora (dedomenou oti xwrizontai me keno)
     }
+    //std::cout << "\n";
+  }
   return 0;
 }
