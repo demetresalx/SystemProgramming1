@@ -1,11 +1,10 @@
 CC=g++  -std=c++11
-CFLAGS=-c -Wpedantic -Ofast
+CFLAGS=-c -Wpedantic #-Ofast
 LDFLAGS=
-SOURCES=diseaseMonitor.cpp
+SOURCES=diseaseMonitor.cpp record.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=diseaseMonitor
-TESTSOURCE=ourunit.cpp
-TESTEXEC=ourunit
+
 
 
 #syspro
@@ -17,9 +16,6 @@ $(EXECUTABLE): $(OBJECTS)
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
-
-test:
-	$(CC) -o $(TESTEXEC) $(TESTSOURCE)
 
 run:
 	./$(EXECUTABLE) -p ../inputs/ass1_records.txt -h1 40 -h2 41 -b 20

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <stdlib.h> //atoi
 #include <cstring> //strcpy gia ta pathings. genika oxi idiaitera
+#include "record.h"
 
 
 int main(int argc, char *argv[]){
@@ -43,15 +44,15 @@ int main(int argc, char *argv[]){
     std::string record_parts[7]; //mia thesi gia kathe melos tou record wste na ta valw eukola se object meta
     while ((beg = line.find_first_not_of(delims, pos)) != std::string::npos){
         pos = line.find_first_of(delims, beg + 1);
-        //std::cout << line.substr(beg, pos - beg) << "_";
         record_parts[params_count] = line.substr(beg, pos - beg);
         params_count++;
-        //AUTO ISWS GINETAI STH DOMH EGGRAFHS. constructor basei string(??). Ekei mesa mporei na ginei k date check, idio id ktl...
-    }
+    }//telos while eksagwghs gnwrismatwn apo grammh
     if(params_count != 7) //problhmatiko input, prepei na akoloythei motivo ekfwnhshs. Tha faei skip auth h eggrafh
       continue;
 
-    std::cout << "\n";
+    record * new_rec_ptr = new record(record_parts);
+
+    //std::cout << "\n";
   }//telos while read file
 
   return 0;
