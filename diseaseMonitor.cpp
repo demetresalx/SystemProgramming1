@@ -36,27 +36,23 @@ int main(int argc, char *argv[]){
   std::ifstream infile(dataset_path); //diabasma apo tis grammes tou arxeiou
   std::string line; //EPITREPETAI H STRING EIPAN STO PIAZZA
   while (std::getline(infile, line)){ //read file
-    //  std::cout << line;
-    //std::stringstream check1(line);
-    //std::string intermediate;
-    /*while (getline(check1, intermediate, ' ')){ ///tokenize basei kenou
-        //std::cout << intermediate <<"_"; //to intermediate exei kathe leksh kathe fora (dedomenou oti xwrizontai me keno)
-    }*/
     //https://stackoverflow.com/questions/49201654/splitting-a-string-with-multiple-delimiters-in-c
     std::string const delims{ " \t," }; //delimiters einai ta: space,tab,comma. TELOS.
     size_t beg, pos = 0;
     int params_count =0;
+    std::string record_parts[7]; //mia thesi gia kathe melos tou record wste na ta valw eukola se object meta
     while ((beg = line.find_first_not_of(delims, pos)) != std::string::npos){
         pos = line.find_first_of(delims, beg + 1);
-        std::cout << line.substr(beg, pos - beg) << "_";
+        //std::cout << line.substr(beg, pos - beg) << "_";
+        record_parts[params_count] = line.substr(beg, pos - beg);
         params_count++;
         //AUTO ISWS GINETAI STH DOMH EGGRAFHS. constructor basei string(??). Ekei mesa mporei na ginei k date check, idio id ktl...
     }
-    if(params_count != 7){ //problhmatiko input, prepei na akoloythei motivo ekfwnhshs.
-      std::cout << "Kakws orismeno input. Leipoyn h perisseuoun gnwrismata..."
-    }
+    if(params_count != 7) //problhmatiko input, prepei na akoloythei motivo ekfwnhshs. Tha faei skip auth h eggrafh
+      continue;
+
     std::cout << "\n";
-  }
+  }//telos while read file
 
   return 0;
 }
