@@ -19,6 +19,13 @@ class record{
     record(){}; //enas empty contrusctor
     record(std::string *);                            // o conustructor basei pinaka strings
     //setters & getters!!!
+    void set_recordID(std::string );
+    void set_patientFirstName(std::string );
+    void set_patientLastName(std::string );
+    void set_diseaseID(std::string );
+    void set_country(std::string );
+    void set_entryDate(std::string );
+    void set_exitDate(std::string );
     ~record(); //destructor
 
 };
