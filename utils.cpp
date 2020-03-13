@@ -1,10 +1,10 @@
-#include <string>
-#include <sstream>
-#include <iostream>
-#include <cstring>
+#include "utils.h"
 
 //h sunarthsh epistrefei to katallhlo apotelesma gia to an to date1 einai megalutero, iso h mikrotero tou date2
 std::string dates_compare(std::string date1, std::string date2){
+
+  if(date2 == "-")
+    return "smaller"; //den exei bgei akoma, eimaste ok me thn paula.
 
   int params_count =0;
   std::string intermediate;

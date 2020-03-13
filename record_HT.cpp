@@ -6,6 +6,10 @@ record_HT_node::record_HT_node(record * rec){
   rec_ptr = rec;
 }
 
+record_HT_node::~record_HT_node(){
+  //destructor isws to ftiaksw
+}
+
 //constructor gia HT basei size
 record_HT::record_HT(int si){
   size = si;
@@ -13,6 +17,9 @@ record_HT::record_HT(int si){
   for(unsigned int i=0; i<size; i++){
     table[i] = NULL; //arxika adeio olo
   }
+}
+record_HT::~record_HT(){
+  //destructor isws to ftiaksw
 }
 
 //vazei record sto HT. HASHING BASEI ID

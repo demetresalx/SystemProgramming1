@@ -5,7 +5,9 @@
 #include <stdlib.h> //atoi
 #include <cstring> //strcpy gia ta pathings. genika oxi idiaitera
 #include "record.h"
-#include "utils.hpp"
+#include "record_HT.h"
+#include "utils.h"
+#include <typeinfo>
 
 int main(int argc, char *argv[]){
 
@@ -52,10 +54,10 @@ int main(int argc, char *argv[]){
     if(dates_compare(record_parts[5], record_parts[6]) != "smaller") //ean h entrydate einai megaluterh h ish ths exitdate
       continue;
     record * new_rec_ptr = new record(record_parts); //dhmiourgia eggrafhs
-    if(records_htable.insert_record(new_rec_ptr) <0){ //brethhke diplotyph eggrafh. termatismos!
-      std::cout << "brethhke diplotyph eggrafh. termatismos!\n";
-      exit(EXIT_FAILURE);
-    }
+    //if(records_htable.insert_record(new_rec_ptr) <0){ //brethhke diplotyph eggrafh. termatismos!
+      //std::cout << "brethhke diplotyph eggrafh. termatismos!\n";
+      //exit(EXIT_FAILURE);
+    //}
 
     //std::cout << "\n";
   }//telos while read file

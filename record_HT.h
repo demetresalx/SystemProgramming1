@@ -2,7 +2,7 @@
 #define _RECORD_HT_H_
 
 #include "record.h"
-#include "utils.hpp"
+#include "utils.h"
 //H dikh moy domh gia thn apothhkeush twn eggrafwn. Me hash table exoume poly kalyterh xronikh polyplokothta ap oti me aplh lista.
 //Na shmeiwthei pws autos o HT einai enas KLASSIKOS HT kai den akoloythei th morfologia twn disease kai country HT poy tha ftiaxtoun opws zhtaei h askhsh.
 
