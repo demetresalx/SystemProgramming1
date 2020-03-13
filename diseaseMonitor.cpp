@@ -1,12 +1,11 @@
 //MAIN ARXEIO. Apo edw trexei h efarmogh.
 #include <iostream>
 #include <string> //EPITREPETAI EIPWTHHKE STO PIAZZA
-#include <sstream>
 #include <fstream>
 #include <stdlib.h> //atoi
 #include <cstring> //strcpy gia ta pathings. genika oxi idiaitera
 #include "record.h"
-
+#include "utils.hpp"
 
 int main(int argc, char *argv[]){
 
@@ -49,11 +48,11 @@ int main(int argc, char *argv[]){
     }//telos while eksagwghs gnwrismatwn apo grammh
     if(params_count != 7) //problhmatiko input, prepei na akoloythei motivo ekfwnhshs. Tha faei skip auth h eggrafh
       continue;
-
+    if(dates_compare(record_parts[5], record_parts[6]) != "smaller") //ean h entrydate einai megaluterh h ish ths exitdate
+      continue;
     record * new_rec_ptr = new record(record_parts);
 
     //std::cout << "\n";
   }//telos while read file
-
   return 0;
 }

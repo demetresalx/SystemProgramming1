@@ -12,6 +12,7 @@ record::record(std::string *params){ //constructor basei twn gnwrismatwn poy eks
   exitDate = params[6];
 }
 
+//setters
 void record::set_recordID(std::string newid){
   recordID = newid;
 }
@@ -38,4 +39,33 @@ void record::set_entryDate(std::string newed){
 
 void record::set_exitDate(std::string newed){
   exitDate = newed;
+}
+
+//getters
+std::string record::get_recordID(){
+  return recordID;
+}
+
+std::string record::get_patientFirstName(){
+  return patientFirstName;
+}
+
+std::string record::get_patientLastName(){
+  return patientLastName;
+}
+
+std::string record::get_diseaseID(){
+  return diseaseID;
+}
+
+std::string record::get_country(){
+  return country;
+}
+
+std::string record::get_entryDate(){
+  return entryDate;
+}
+
+std::string record::get_exitDate(){
+  return exitDate;
 }
