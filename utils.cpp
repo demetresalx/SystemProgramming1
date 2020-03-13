@@ -24,7 +24,7 @@ std::string dates_compare(std::string date1, std::string date2){
   }//telos while eksagwghs gnwrismatwn apo date2
 
   if(params_count2 != params_count)//problhmatiko input. de tha eprepe na dothei etsi sumfwna me ekfwnhsh
-    std::cout << "kakws orismena dates. shouldn't happen kata ekfwnhsh";
+    return "kakws orismena dates. shouldn't happen kata ekfwnhsh";
 
   if(date1_parts[2] > date2_parts[2]) //megaluterh xronia
     return "bigger";

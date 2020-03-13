@@ -44,3 +44,18 @@ int record_HT::insert_record(record * rec){
   return 0; //egine ok, return 0
 
 }
+
+//sunarthsh ektypwshs
+void record_HT::print_contents(){
+  for(unsigned int i=0; i<size; i++){
+    if(table[i] == NULL) //kenh alusida
+      continue;
+    else{
+      record_HT_node * currptr = table[i];
+      while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH. MONO MERIKA PEDIA ALLA MPORW KAI OLA
+        std::cout << currptr->rec_ptr->get_recordID() << " " << currptr->rec_ptr->get_diseaseID() << " " << currptr->rec_ptr->get_patientFirstName() << "\n";
+        currptr = currptr->next ;
+      }//telos while gia orizontia lista
+    }//telos else
+  }//telos for gia kathe alusida
+}//telos sunarthshs
