@@ -32,6 +32,7 @@ int main(int argc, char *argv[]){
     }
 
   } //telos for command line args
+  record_HT records_htable(diseaseHashtableNumOfEntries+countryHashtableNumOfEntries); //o DIKOS MOU HT gia tis eggrafes basei recordID megethous h1+h2. KALUTEROS APO APLH LISTA
   //std::cout << "params are: " << dataset_path << " " << diseaseHashtableNumOfEntries << " " << countryHashtableNumOfEntries << " " << bucketSize << "\n";
   std::ifstream infile(dataset_path); //diabasma apo tis grammes tou arxeiou
   std::string line; //EPITREPETAI H STRING EIPAN STO PIAZZA
@@ -50,7 +51,11 @@ int main(int argc, char *argv[]){
       continue;
     if(dates_compare(record_parts[5], record_parts[6]) != "smaller") //ean h entrydate einai megaluterh h ish ths exitdate
       continue;
-    record * new_rec_ptr = new record(record_parts);
+    record * new_rec_ptr = new record(record_parts); //dhmiourgia eggrafhs
+    if(records_htable.insert_record(new_rec_ptr) <0){ //brethhke diplotyph eggrafh. termatismos!
+      std::cout << "brethhke diplotyph eggrafh. termatismos!\n";
+      exit(EXIT_FAILURE);
+    }
 
     //std::cout << "\n";
   }//telos while read file

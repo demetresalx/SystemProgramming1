@@ -11,3 +11,10 @@ First (1st) assignment on UNIX system programming,
 Απορρίπτονται αρχεία που έχουν εγγραφές με λιγότερα ή περισσότερα από 7 (επτά) γνωρίσματα:
 1.recordID, 2.patientFirstName, 3.patientLastName, 4.diseaseID, 5.country, 6.entryDate, 7.exitDate (που μπορεί ασφαλώς να είναι παύλα.)
 Οποιαδήποτε εγγραφή δεν ακολουθεί αυτό το μοτίβο αγνοείται.
+
+
+
+
+ΕΞΩΤΕΡΙΚΕΣ ΑΝΑΦΟΡΕΣ
+hash function : https://stackoverflow.com/questions/8317508/hash-function-for-a-string
+tokenization of string : https://stackoverflow.com/questions/49201654/splitting-a-string-with-multiple-delimiters-in-c
