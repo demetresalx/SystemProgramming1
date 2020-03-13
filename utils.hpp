@@ -1,6 +1,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <cstring>
 
 //h sunarthsh epistrefei to katallhlo apotelesma gia to an to date1 einai megalutero, iso h mikrotero tou date2
 std::string dates_compare(std::string date1, std::string date2){
@@ -43,4 +44,24 @@ std::string dates_compare(std::string date1, std::string date2){
   }
   if(date1_parts[2] < date2_parts[2]) //mikroterh xronia
     return "smaller";
+}
+
+//https://stackoverflow.com/questions/8317508/hash-function-for-a-string - hash function gia strings
+//prosarmosmenh sta dika moy dedomena
+#define APRIME 54059 /* a prime */
+#define BPRIME 76963 /* another prime */
+#define CPRIME 86969 /* yet another prime */
+#define FIRSTH 37 /* also prime */
+unsigned hash_str(std::string str)
+{
+   int n = str.length();
+   char char_array[n + 1];
+   strcpy(char_array, str.c_str());
+   char * s = char_array;
+   unsigned h = FIRSTH;
+   while (*s) {
+     h = (h * APRIME) ^ (s[0] * BPRIME);
+     s++;
+   }
+   return h; // or return h % CPRIME;
 }
