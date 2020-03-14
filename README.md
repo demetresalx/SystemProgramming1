@@ -12,7 +12,7 @@ First (1st) assignment on UNIX system programming,
 1.recordID, 2.patientFirstName, 3.patientLastName, 4.diseaseID, 5.country, 6.entryDate, 7.exitDate (που μπορεί ασφαλώς να είναι παύλα.)
 Οποιαδήποτε εγγραφή δεν ακολουθεί αυτό το μοτίβο αγνοείται.
 
-
+Όποιο και να είναι το bucketSize, δε γίνεται ο αριθμός κόμβων σε blocks να είναι 0. Θα είναι τουλάχιστον 1.
 
 
 ΕΞΩΤΕΡΙΚΕΣ ΑΝΑΦΟΡΕΣ

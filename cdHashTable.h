@@ -12,9 +12,10 @@ class block_entry{ //monh lista poy periexei ton katallhlo arithmo onomatwn (bas
   public:
     std::string * dis_name_ptr; //deikths se string poy tha filoksenhsei to diseaseID h to country
     void * tree_ptr; //TREE NODE PTR
-    int kati; //isws gia to currentpatients??
+    int currval; //isws gia to currentpatients??
 
-    block_entry(){};
+    block_entry();
+    int insert_record(record * , std::string );
     ~block_entry();
 };
 
@@ -25,6 +26,9 @@ class chain_node{ //komvos alusidas sto hash table
     chain_node * next; //epomenos komvos
 
     chain_node(){};
+    chain_node(int );
+    bool insert_record(record *, std::string );
+    void print_contents();
     ~chain_node();
 };
 
@@ -32,11 +36,13 @@ class chain_node{ //komvos alusidas sto hash table
 class cdHashTable{ //o hash table
 public:
   int size; //megethos pinaka (h1 h h2 analogws)
+  int bucksize; //to bucketSize ths ekfwnhshs
   chain_node ** table; //ena dunamiko array poy periexei ta buckets
 
   cdHashTable(){};
   cdHashTable(int , int ); //constructor basei size kai bucketSize
   ~cdHashTable(){};
+  void print_contents(); //ektypwnei auta p exei so far
   virtual int insert_record(record * ) {}; //to kathe derived class tha xeristei diaforetiko kleidi
 };
 
