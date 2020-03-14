@@ -67,12 +67,28 @@ countryHashTable::countryHashTable(int sze, int bucketsize) : cdHashTable(sze, b
 
 //h virtual gia country
 int countryHashTable::insert_record(record* rec){
-  unsigned hval = hash_str(rec->get_country()); //hasharei to country
+  unsigned hval = hash_str(rec->get_country()); //hasharei to diseaseID
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
   if(table[hval] == NULL){ //ean den yparxei alusida ekei, th ftiaxnoyme
-    //table[hval] = new record_HT_node(rec);
+    table[hval] = new chain_node(bucksize);
+    table[hval]->insert_record(rec, rec->get_country());
+    return 0;
   }
+  else{
+    chain_node * currptr = table[hval];
+    bool done = false;
+    while(!done){ //prospathei na to valei se kapoio ths alusidas. to kathena koitaei ton pinaka tou
+      done = currptr->insert_record(rec, rec->get_country());
+      if((done==false)&&(currptr->next == NULL)){ //an den exei kataferei na th valei kai den exoume epomeno komvo, ftiaxnume k paei ekei.
+        currptr->next = new chain_node(bucksize);
+        currptr->next->insert_record(rec, rec->get_country());
+        return 0;
+      }//telos if
+      currptr = currptr->next ;
+    }//telos while done eisagwghs
+  }//telos else
+
   return 0;
 }
 
@@ -92,7 +108,7 @@ bool chain_node::insert_record(record* rec, std::string key){
       block[i].insert_record(rec, key);
       return true; //komple
     }
-    if( *(block[i].dis_name_ptr) == rec->get_diseaseID() ){ //h astheneia yparxei. proxwrame edw.
+    if( *(block[i].dis_name_ptr) == key ){ //h astheneia/xwra yparxei. proxwrame edw.
       block[i].insert_record(rec, key);
       return true; //komple
     }
@@ -118,8 +134,11 @@ block_entry::block_entry(){
 }
 
 int block_entry::insert_record(record * rec, std::string key){
-  dis_name_ptr = new std::string(key);
-  tree_ptr = NULL; //allazei s ligo
+  if(dis_name_ptr == NULL)
+    dis_name_ptr = new std::string(key);
+  //de xreiazetai else. an den einai null shmainei oti h astheneia/xwra yparxei hdh kai de xreiazetai ksana to idio string
+  //sunexizoume me aukshsh metrhth kai eisagwgh se dentro
   currval++;
+  tree_ptr = NULL; //allazei s ligo
   return 0;
 }

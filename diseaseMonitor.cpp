@@ -36,7 +36,8 @@ int main(int argc, char *argv[]){
 
   } //telos for command line args
   record_HT records_htable(diseaseHashtableNumOfEntries+countryHashtableNumOfEntries); //o DIKOS MOU HT gia tis eggrafes basei recordID megethous h1+h2. KALUTEROS APO APLH LISTA
-  diseaseHashTable diseases_htable(diseaseHashtableNumOfEntries, bucketSize);
+  diseaseHashTable diseases_htable(diseaseHashtableNumOfEntries, bucketSize); //O ZHTOUMENOS HT GIA DISEASE
+  countryHashTable countries_htable(countryHashtableNumOfEntries, bucketSize); //O ZHTOUMENOS HT GIA COUNTRY
   //std::cout << "params are: " << dataset_path << " " << diseaseHashtableNumOfEntries << " " << countryHashtableNumOfEntries << " " << bucketSize << "\n";
   std::ifstream infile(dataset_path); //diabasma apo tis grammes tou arxeiou
   std::string line; //EPITREPETAI H STRING EIPAN STO PIAZZA
@@ -60,11 +61,12 @@ int main(int argc, char *argv[]){
       std::cout << "brethhke diplotyph eggrafh. termatismos!\n";
       exit(EXIT_FAILURE);
     }
-    diseases_htable.insert_record(new_rec_ptr);
-
+    diseases_htable.insert_record(new_rec_ptr); //eisagwgh ston dis HT
+    countries_htable.insert_record(new_rec_ptr); //eisagwgh ston countries HT
     //std::cout << "\n";
   }//telos while read file
   //records_htable.print_contents();
-  diseases_htable.print_contents();
+  //diseases_htable.print_contents();
+  //countries_htable.print_contents();
   return 0;
 }
