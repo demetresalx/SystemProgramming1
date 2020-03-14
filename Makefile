@@ -18,7 +18,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 run:
-	./$(EXECUTABLE) -p ../inputs/ass1_medium.txt -h1 20 -h2 30 -b 50
+	./$(EXECUTABLE) -p ../inputs/ass1_medium.txt -h1 20 -h2 20 -b 50
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE) $(TESTEXEC)

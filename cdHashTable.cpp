@@ -11,15 +11,18 @@ cdHashTable::cdHashTable(int sze, int bucketsize){
 
 void cdHashTable::print_contents(){
   for(unsigned int i=0; i<size; i++){
+    std::cout << "anoigw thn " << i << " thesh tou pinaka\n";
     if(table[i] == NULL) //kenh alusida
       continue;
     else{
       chain_node * currptr = table[i];
+      int blockorder =1;
       while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH. MONO MERIKA PEDIA ALLA MPORW KAI OLA
-        std::cout << "block size is " << bucksize << "-";
+        std::cout << "\t"<< "koitazw to block " << blockorder << "\n\t\t";
         currptr->print_contents();
         std::cout << "\n\n";
         currptr = currptr->next ;
+        blockorder++;
       }//telos while gia orizontia lista
     }//telos else
   }//telos for gia kathe alusida
@@ -117,11 +120,11 @@ bool chain_node::insert_record(record* rec, std::string key){
 }
 
 void chain_node::print_contents(){
-  std::cout << "chain blocksz is " << block_size << "/";
+  std::cout << "to block exei " << block_size << " theseis\n\t\t\t";
   for(unsigned int i=0; i<block_size; i++){
     if(block[i].dis_name_ptr == NULL)
       continue;
-    std::cout << *(block[i].dis_name_ptr) << " " << block[i].currval << "\n";
+    std::cout << *(block[i].dis_name_ptr) << " " << block[i].currval << "--";
   }
 }
 
