@@ -1,7 +1,7 @@
 CC=g++  -std=c++11
 CFLAGS=-c -Wpedantic #-Ofast
 LDFLAGS=
-SOURCES=diseaseMonitor.cpp record.cpp record_HT.cpp utils.cpp cd_HashTable.cpp
+SOURCES=diseaseMonitor.cpp record.cpp record_HT.cpp utils.cpp cdHashTable.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=diseaseMonitor
 
@@ -18,7 +18,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 run:
-	./$(EXECUTABLE) -p ../inputs/ass1_records.txt -h1 40 -h2 41 -b 20
+	./$(EXECUTABLE) -p ../inputs/ass1_medium.txt -h1 40 -h2 41 -b 20
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE) $(TESTEXEC)

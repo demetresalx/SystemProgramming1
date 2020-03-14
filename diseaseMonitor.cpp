@@ -7,7 +7,8 @@
 #include "record.h"
 #include "record_HT.h"
 #include "utils.h"
-#include <typeinfo>
+#include "cdHashTable.h"
+
 
 int main(int argc, char *argv[]){
 
@@ -61,6 +62,7 @@ int main(int argc, char *argv[]){
 
     //std::cout << "\n";
   }//telos while read file
-  records_htable.print_contents();
+  //records_htable.print_contents();
+  countryHashTable okite(5,5);
   return 0;
 }
