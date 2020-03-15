@@ -4,6 +4,7 @@
 #include <string>
 #include "utils.h"
 #include "record.h"
+#include "bbst.h"
 
 //o HT POU ZHTA H ASKHSH. Tha ftiaxtei enas gia country kai enas gia disease. H domh tous einai idia omws.
 //apoteleitai apo ta ekshs antikeimena:
@@ -11,7 +12,7 @@
 class block_entry{ //monh lista poy periexei ton katallhlo arithmo onomatwn (basei bucketsize) kai tous deiktes sta dendra
   public:
     std::string * dis_name_ptr; //deikths se string poy tha filoksenhsei to diseaseID h to country
-    void * tree_ptr; //TREE NODE PTR
+    BBST * tree_ptr; //TREE NODE PTR
     int currval; //isws gia to currentpatients??
     int totalval; //gia allo erwthma?
 

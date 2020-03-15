@@ -28,6 +28,8 @@ public:
   BBST();
   BBST(record * ); //constructor basei eggrafhs
   ~BBST();
+  int insert_record(record *);
+  void print_contents();
 
 };
 

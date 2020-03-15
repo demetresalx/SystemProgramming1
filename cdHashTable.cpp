@@ -146,5 +146,10 @@ int block_entry::insert_record(record * rec, std::string key){
     currval++;
   totalval++;
   tree_ptr = NULL; //allazei s ligo
+  if(tree_ptr == NULL) //den yparxei dentro, to ftiaxnw k eisagw eggrafh
+    tree_ptr = new BBST(rec); // o constructor basei orismatos tou bbst frontizei ta ypoloipa
+  else //yparxei dentro. eisagw eggrafh
+    tree_ptr->insert_record(rec);
+
   return 0;
 }
