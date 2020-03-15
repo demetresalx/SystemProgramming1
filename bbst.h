@@ -15,6 +15,7 @@ public:
   reclist(record *);
   ~reclist();
   int insert_record(record * );
+  void print_contents();
 };
 
 

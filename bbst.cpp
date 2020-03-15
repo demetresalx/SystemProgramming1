@@ -29,7 +29,9 @@ BBST::~BBST(){
 
 //eisagei eggrafh sto dentro. den exoume data duplication afou milame gia deikth sthn arxikh eggrafh poy brisketai sth dikh moy domh aplou HT
 int BBST::insert_record(record* rec){
+  //std::cout << dates_compare(rec->get_entryDate() , *date);
   if(dates_compare(rec->get_entryDate() , *date) == "equal"){ //ean h hmeromhnia ths eggrafhs einai ish me tou komvou
+    //std::cout << "brhka idio date";
     list_of_records->insert_record(rec); //valth sth lista tou komvou
     return 0;
   }//telos if gia hmeromhnia
@@ -54,7 +56,12 @@ int BBST::insert_record(record* rec){
 }//telos sunarthshs
 
 void BBST::print_contents(){
-  
+  std::cout << "eimai komvos dentrou, exw date: " << *date << "\n";
+  list_of_records->print_contents();
+  if(left_child != NULL)
+    left_child->print_contents();
+  if(right_child != NULL)
+    right_child->print_contents();
 }
 
 
@@ -67,6 +74,7 @@ reclist::reclist(){
 }
 
 reclist::reclist(record * rec){
+  //std::cout << "yparxww kai bazww " << rec->get_patientFirstName();
   recptr = rec;
   next = NULL;
 }
@@ -84,4 +92,14 @@ int reclist::insert_record(record * rec){
   currptr->next = new reclist(rec);
 
   return 0;
+}
+
+void reclist::print_contents(){
+  std::cout << "\t eimai h lista ston komvo t dentrou kai exw ta: ";
+  reclist * currptr = this;
+  while(currptr != NULL){ //paei mexri to telos
+    std::cout << recptr->get_patientFirstName() << " ";
+    currptr = currptr->next ;
+  }//telos while gia next
+  std::cout << "\n";
 }

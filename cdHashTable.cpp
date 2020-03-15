@@ -124,7 +124,10 @@ void chain_node::print_contents(){
   for(unsigned int i=0; i<block_size; i++){
     if(block[i].dis_name_ptr == NULL)
       continue;
-    std::cout << *(block[i].dis_name_ptr) << " " << block[i].currval << "--";
+    std::cout << *(block[i].dis_name_ptr) << " curr " << block[i].currval << " total " << block[i].totalval << " ";
+    std::cout << "to dentro moy: ";
+    block[i].tree_ptr->print_contents();
+    std::cout << "--";
   }
 }
 
@@ -145,7 +148,6 @@ int block_entry::insert_record(record * rec, std::string key){
   if(rec->get_exitDate() == "-") //den exei bgei, increase current!
     currval++;
   totalval++;
-  tree_ptr = NULL; //allazei s ligo
   if(tree_ptr == NULL) //den yparxei dentro, to ftiaxnw k eisagw eggrafh
     tree_ptr = new BBST(rec); // o constructor basei orismatos tou bbst frontizei ta ypoloipa
   else //yparxei dentro. eisagw eggrafh
