@@ -3,6 +3,13 @@
 
 record::record(std::string *params){ //constructor basei twn gnwrismatwn poy ekshxthhsan apo grammh input
   //std::cout << "i am construcotrrrrr";
+  /*recordID = new std::string(params[0]);
+  patientFirstName = new std::string(params[1]);
+  patientLastName = new std::string(params[2]);
+  diseaseID = new std::string(params[3]);
+  country = new std::string(params[4]);
+  entryDate = new std::string(params[5]);
+  exitDate = new std::string(params[6]);*/
   recordID = params[0];
   patientFirstName = params[1];
   patientLastName = params[2];
@@ -10,6 +17,18 @@ record::record(std::string *params){ //constructor basei twn gnwrismatwn poy eks
   country = params[4];
   entryDate = params[5];
   exitDate = params[6];
+}
+
+//destructor, sxoliasmeno eswteriko gt to eixa dokimasei kai me pointers alla de xreiasthke
+record::~record(){
+  /*delete recordID;
+  delete patientFirstName;
+  delete patientLastName;
+  delete diseaseID;
+  delete country;
+  delete entryDate;
+  delete exitDate;*/
+
 }
 
 //setters

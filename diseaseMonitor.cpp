@@ -64,9 +64,10 @@ int main(int argc, char *argv[]){
     diseases_htable.insert_record(new_rec_ptr); //eisagwgh ston dis HT
     countries_htable.insert_record(new_rec_ptr); //eisagwgh ston countries HT
     //std::cout << "\n";
+
   }//telos while read file
   //records_htable.print_contents();
-  diseases_htable.print_contents();
+  //diseases_htable.print_contents();
   //countries_htable.print_contents();
   return 0;
 }

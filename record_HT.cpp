@@ -7,7 +7,8 @@ record_HT_node::record_HT_node(record * rec){
 }
 
 record_HT_node::~record_HT_node(){
-  //destructor isws to ftiaksw
+  delete rec_ptr;//svhnei tn eggrafh
+  delete next; //svhnei ton epomeno komvo. LOGW DELETE THA KLH8EI O DESTRCTOR TOU NEXT POY SBHNEI TON NEXT TOU NEXT KTL KTL..
 }
 
 //constructor gia HT basei size
@@ -19,7 +20,11 @@ record_HT::record_HT(int si){
   }
 }
 record_HT::~record_HT(){
-  //destructor isws to ftiaksw
+  for(unsigned int i=0; i<size; i++)
+    if(table[i] != NULL)
+      delete table[i];
+  delete[] table; //katastrofh tou pinaka apo chain nodes. To kathe chain node exei ton diko tou destructor kai kanei toso delete this oso kai delete next.
+  //h c++ frontizei kai ekshgw parakatw pws
 }
 
 //vazei record sto HT. HASHING BASEI ID

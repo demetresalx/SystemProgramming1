@@ -34,7 +34,7 @@ class chain_node{ //komvos alusidas sto hash table
     ~chain_node();
 };
 
-
+//h genikh morfh tou zhtoumenou HT poy tha klhronomhsoun ta 2 aderfia : diseaseHashTable kai countryHashTable
 class cdHashTable{ //o hash table
 public:
   int size; //megethos pinaka (h1 h h2 analogws)
@@ -43,7 +43,7 @@ public:
 
   cdHashTable(){};
   cdHashTable(int , int ); //constructor basei size kai bucketSize
-  ~cdHashTable(){};
+  ~cdHashTable();
   void print_contents(); //ektypwnei auta p exei so far
   virtual int insert_record(record * ) {}; //to kathe derived class tha xeristei diaforetiko kleidi
 };

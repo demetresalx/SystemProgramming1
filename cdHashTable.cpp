@@ -1,5 +1,6 @@
 #include "cdHashTable.h"
 
+
 cdHashTable::cdHashTable(int sze, int bucketsize){
   size = sze;
   table = new chain_node *[size]; //ena dunamiko array apo deiktes se chain_node (buckets)
@@ -7,6 +8,15 @@ cdHashTable::cdHashTable(int sze, int bucketsize){
     table[i] = NULL; //arxika adeio olo
   }
   bucksize = bucketsize;
+}
+
+cdHashTable::~cdHashTable(){
+  for(unsigned int i=0; i<size; i++)
+    if(table[i] != NULL)
+      delete table[i];
+  delete[] table; //katastrofh tou pinaka apo chain nodes. To kathe chain node exei ton diko tou destructor kai kanei toso delete this oso kai delete next.
+  //h c++ frontizei kai ekshgw parakatw pws
+
 }
 
 void cdHashTable::print_contents(){
@@ -105,6 +115,14 @@ chain_node::chain_node(int sz){
   block = new block_entry[block_size]; //toses theseis oses leei h ekfwnhsh
 }
 
+chain_node::~chain_node(){
+  //std::cout << "ffOTO";
+  delete[] block;
+  delete next; //KATASTREFETAI ANADROMIKA. STH C++ H DELETE KALEI TON DESTRUCTOR EAN YPARXEI. THA KALESEI LOIPON GIA TO NEXT TON DESTRUCTOR O OPOIOS KALEI GIA TO NEXT KTL KTL.
+  //delete this; //to epitrepei h C++. To kalw mono edw giati ta chain nodes yparxoyn se pinaka (ton zhtoumeno ht) gia na glitwsw th loupa
+
+}
+
 bool chain_node::insert_record(record* rec, std::string key){
   for(unsigned int i=0; i<block_size; i++){
     if(block[i].dis_name_ptr == NULL){ //einai h 1h adeia thesh, valto ekei
@@ -138,6 +156,12 @@ block_entry::block_entry(){
   tree_ptr = NULL;
   currval =0;
   totalval =0;
+}
+
+block_entry::~block_entry(){
+  //std::cout << "watashi wa, BUROKU!";
+  delete dis_name_ptr;
+  delete tree_ptr; //KATASTREFETAI ANADROMIKA. STH C++ H DELETE KALEI TON DESTRUCTOR EAN EXEI ORISTEI. DES DESTRUCTOR BBST sto bbst.cpp
 }
 
 int block_entry::insert_record(record * rec, std::string key){
