@@ -46,22 +46,17 @@ std::string dates_compare(std::string date1, std::string date2){
     return "smaller";
 }
 
-//https://stackoverflow.com/questions/8317508/hash-function-for-a-string - hash function gia strings
+//https://stackoverflow.com/questions/16075271/hashing-a-string-to-an-integer-in-c - hash function gia strings
 //prosarmosmenh sta dika moy dedomena
-#define APRIME 54059 /* a prime */
-#define BPRIME 76963 /* another prime */
-#define CPRIME 86969 /* yet another prime */
-#define FIRSTH 37 /* also prime */
+
 unsigned hash_str(std::string str)
 {
-   int n = str.length();
-   char char_array[n + 1];
-   strcpy(char_array, str.c_str());
-   char * s = char_array;
-   unsigned h = FIRSTH;
-   while (*s) {
-     h = (h * APRIME) ^ (s[0] * BPRIME);
-     s++;
-   }
-   return h; // or return h % CPRIME;
+   uint32_t hash = 0x811c9dc5;
+   uint32_t prime = 0x1000193;
+   for(int i = 0; i < str.size(); ++i) {
+        uint8_t value = str[i];
+        hash = hash ^ value;
+        hash *= prime;
+    }
+   return hash;
 }

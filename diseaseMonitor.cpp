@@ -66,7 +66,7 @@ int main(int argc, char *argv[]){
     //std::cout << "\n";
   }//telos while read file
   //records_htable.print_contents();
-  //diseases_htable.print_contents();
+  diseases_htable.print_contents();
   //countries_htable.print_contents();
   return 0;
 }

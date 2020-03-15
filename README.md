@@ -16,5 +16,5 @@ First (1st) assignment on UNIX system programming,
 
 
 ΕΞΩΤΕΡΙΚΕΣ ΑΝΑΦΟΡΕΣ
-hash function : https://stackoverflow.com/questions/8317508/hash-function-for-a-string
+Για hash function : https://stackoverflow.com/questions/16075271/hashing-a-string-to-an-integer-in-c
 tokenization of string : https://stackoverflow.com/questions/49201654/splitting-a-string-with-multiple-delimiters-in-c
