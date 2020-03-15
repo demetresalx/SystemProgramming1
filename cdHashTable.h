@@ -13,6 +13,7 @@ class block_entry{ //monh lista poy periexei ton katallhlo arithmo onomatwn (bas
     std::string * dis_name_ptr; //deikths se string poy tha filoksenhsei to diseaseID h to country
     void * tree_ptr; //TREE NODE PTR
     int currval; //isws gia to currentpatients??
+    int totalval; //gia allo erwthma?
 
     block_entry();
     int insert_record(record * , std::string );

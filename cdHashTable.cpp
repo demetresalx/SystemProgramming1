@@ -134,6 +134,7 @@ block_entry::block_entry(){
   dis_name_ptr = NULL;
   tree_ptr = NULL;
   currval =0;
+  totalval =0;
 }
 
 int block_entry::insert_record(record * rec, std::string key){
@@ -141,7 +142,9 @@ int block_entry::insert_record(record * rec, std::string key){
     dis_name_ptr = new std::string(key);
   //de xreiazetai else. an den einai null shmainei oti h astheneia/xwra yparxei hdh kai de xreiazetai ksana to idio string
   //sunexizoume me aukshsh metrhth kai eisagwgh se dentro
-  currval++;
+  if(rec->get_exitDate() == "-") //den exei bgei, increase current!
+    currval++;
+  totalval++;
   tree_ptr = NULL; //allazei s ligo
   return 0;
 }
