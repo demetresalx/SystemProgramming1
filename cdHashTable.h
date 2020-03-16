@@ -52,6 +52,7 @@ class diseaseHashTable : public cdHashTable { //o hash table gia disease
 public:
   diseaseHashTable(int, int);
   int insert_record(record * );
+  void numCurrentPatients(std::string );
 };
 
 class countryHashTable : public cdHashTable { //o hash table gia disease

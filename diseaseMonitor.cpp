@@ -70,7 +70,7 @@ int main(int argc, char *argv[]){
   while(true){
     getline(std::cin, line); //diabazei grammh apo keyboard
     if(line == "/exit")
-      return 0; //olh h desmeumenh mnhmh apodesmeuetai mesw paneksupna sxediasmenwn destructors. Des se kathe class
+      break; //olh h desmeumenh mnhmh apodesmeuetai mesw paneksupna sxediasmenwn destructors. Des se kathe class
     else{
       std::string requ[12]; //o arithmos orismatwn einai sugkekrimenos gia sugkekrimenes entoles opote de mas noiazei to orio
       std::stringstream check1(line);
@@ -137,10 +137,10 @@ int main(int argc, char *argv[]){
       }
       else if(requ[0] == "/numCurrentPatients"){
           if(ind == 1){
-            //xwris to proairetiko orisma disease
+            diseases_htable.numCurrentPatients("");
           }
           else if(ind == 2){ //to monadiko proairetiko orisma poy epitrepetai, to disease
-            //me orisma disease
+            diseases_htable.numCurrentPatients(requ[1]);
           }
           else
             std::cout << "Lathos sta orismata. try again...\n";

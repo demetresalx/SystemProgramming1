@@ -70,7 +70,58 @@ int diseaseHashTable::insert_record(record* rec){
 
   return 0;
 }
-
+//gia to omwnumo erwthma
+void diseaseHashTable::numCurrentPatients(std::string disease){
+  if(disease == ""){ //pairnei kenh sumvoloseira an den oristhke. kanei th genikh periptwsh gia kathe iwsh
+    int curtotal =0;
+    for(unsigned int i=0; i<size; i++){
+      if(table[i] == NULL) //kenh alusida
+        continue;
+      else{
+        chain_node * currptr = table[i];
+        block_entry * buroku = NULL;
+        while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH. MONO MERIKA PEDIA ALLA MPORW KAI OLA
+          buroku = currptr->block;
+          for(unsigned int j=0; j<currptr->block_size; j++){
+            if(buroku[j].dis_name_ptr == NULL) //no entry edw
+              continue;
+            else{
+              std::cout << "For disease : " << *(buroku[j].dis_name_ptr) << " there are " << buroku[j].currval << " patients still in hospital\n";
+              curtotal += buroku[j].currval ;
+            }
+          }//telos for gia block
+          currptr = currptr->next ;
+        }//telos while gia orizontia lista
+      }//telos else kenhs alusidas
+    }//telos for gia kathe alusida
+    std::cout << "A total of " << curtotal << " patients still in hospital\n";
+  }//telos if genikh periptwsh
+  else{
+    unsigned hv = hash_str(disease); //hasharei to onoma ths
+    hv = hv % size; //gia thesh pinaka
+    if(table[hv] == NULL){  //kenh alusida
+      std::cout << "Disease specified does not exist.\n";
+      return;
+    }
+    else{ //h alusida den ein adeia
+      chain_node * currptr = table[hv];
+      block_entry * buroku = NULL;
+      while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH. MONO MERIKA PEDIA ALLA MPORW KAI OLA
+        buroku = currptr->block;
+        for(unsigned int j=0; j<currptr->block_size; j++){
+          if(buroku[j].dis_name_ptr == NULL) //no entry edw
+            continue;
+          if(*(buroku[j].dis_name_ptr) == disease){
+            std::cout << "For disease : " << *(buroku[j].dis_name_ptr) << " there are " <<buroku[j].currval << " patients still in hospital\n";
+            return;
+          }
+        }//telos for gia block
+        currptr = currptr->next ;
+      }//telos while gia orizontia lista
+    }//telos else kenhs alusidas
+    std::cout << "Disease specified does not exist.\n";
+  }//telos else periptwshs poy exoume orisma disease
+}//telos sunarthshs
 
 
 //COUNTRY
@@ -104,6 +155,7 @@ int countryHashTable::insert_record(record* rec){
 
   return 0;
 }
+
 
 
 //CHAIN NODE
