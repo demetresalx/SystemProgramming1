@@ -66,6 +66,91 @@ int main(int argc, char *argv[]){
     //std::cout << "\n";
 
   }//telos while read file
+  //PAME GIA USER INPUT
+  while(true){
+    getline(std::cin, line); //diabazei grammh apo keyboard
+    if(line == "/exit")
+      return 0; //olh h desmeumenh mnhmh apodesmeuetai mesw paneksupna sxediasmenwn destructors. Des se kathe class
+    else{
+      std::string requ[12]; //o arithmos orismatwn einai sugkekrimenos gia sugkekrimenes entoles opote de mas noiazei to orio
+      std::stringstream check1(line);
+      int ind=0; //arithmos orismatwn + tou onomatos entolhs
+      while(getline(check1, requ[ind] , ' ')) { //DELIMITER EINAI TO KENO. TELOS
+        ind++;
+      }//telos while eksagwghs gnwrismatwn apo entolh
+      if(requ[0] == "/globalDiseaseStats"){
+          if(ind == 1){ //xwris ta proairetika date1 k date2
+            //doulitsa xwris country
+          }
+          else if(ind ==3){ //me proairetika orismata date1 k date2
+            //me date1 k date2
+          }
+          else
+            std::cout << "Lathos sta orismata. try again...\n";
+      }
+      else if(requ[0] == "/diseaseFrequency"){
+          if(ind == 4){ //xwris to proairetiko country
+            //doulitsa xwris country
+          }
+          else if(ind ==5){ //me proairetiko orisma country
+            //me country
+          }
+          else
+            std::cout << "Lathos sta orismata. try again...\n";
+      }
+      else if(requ[0] == "/topk-Diseases"){
+          if(ind == 3){ //xwris ta proairetika orismata date1 date2
+            //doulitsa xwris dates
+          }
+          else if(ind ==5){ //me proairetika date1 + date2. De ginetai na yparxei to ena xwris to allo
+            //me date1 k date2
+          }
+          else
+            std::cout << "Lathos sta orismata. try again...\n";
+      }
+      else if(requ[0] == "/topk-Countries"){
+          if(ind == 3){ //xwris ta proairetika orismata date1 date2
+            //doulitsa xwris dates
+          }
+          else if(ind ==5){ //me proairetika date1 + date2. De ginetai na yparxei to ena xwris to allo
+            //me date1 k date2
+          }
+          else
+            std::cout << "Lathos sta orismata. try again...\n";
+      }
+      else if(requ[0] == "/insertPatientRecord"){
+          if(ind == 7){
+            //xwris to proairetiko orisma exitdate
+          }
+          else if(ind == 8){
+            //me exitdate
+          }
+          else
+            std::cout << "Lathos sta orismata. try again...\n";
+      }
+      else if(requ[0] == "/recordPatientExit"){
+          if(ind == 3){
+            //doulitsa
+          }
+          else
+            std::cout << "Lathos sta orismata. try again...\n";
+      }
+      else if(requ[0] == "/numCurrentPatients"){
+          if(ind == 1){
+            //xwris to proairetiko orisma disease
+          }
+          else if(ind == 2){ //to monadiko proairetiko orisma poy epitrepetai, to disease
+            //me orisma disease
+          }
+          else
+            std::cout << "Lathos sta orismata. try again...\n";
+      }
+      else{
+          std::cout << "kakws orismenh entolh. try again...\n";
+      }//telos olwn ton ifs gia to poia kai pws einai h non-exit entolh
+    }//telos else gia to an einai non-exit entolh
+  }//telos while menu
+
   //records_htable.print_contents();
   //diseases_htable.print_contents();
   //countries_htable.print_contents();
