@@ -119,11 +119,36 @@ int main(int argc, char *argv[]){
             std::cout << "Lathos sta orismata. try again...\n";
       }
       else if(requ[0] == "/insertPatientRecord"){
-          if(ind == 7){
-            //xwris to proairetiko orisma exitdate
+          if(ind == 7){ //xwris to proairetiko exitdate
+            requ[7] = "-";
+            std::string tat[7];
+            for(unsigned int k=1; k<8; k++)
+              tat[k-1] = requ[k];
+            record * new_rec_ptr = new record(tat); //dhmiourgia eggrafhs
+            if(records_htable.insert_record(new_rec_ptr) <0){ //brethhke diplotyph eggrafh. termatismos!
+              std::cout << "brethhke diplotypo id eggrafhs. Den eisagw!\n";
+              continue;
+            }
+            diseases_htable.insert_record(new_rec_ptr); //eisagwgh ston dis HT
+            countries_htable.insert_record(new_rec_ptr); //eisagwgh ston countries HT
+
           }
-          else if(ind == 8){
-            //me exitdate
+          else if(ind == 8){ //me exitdate
+            std::string tat[7];
+            for(unsigned int k=1; k<8; k++)
+              tat[k-1] = requ[k];
+            if(dates_compare(tat[5], tat[6]) != "smaller"){ //kakws orismeno date
+              std::cout << "entry date cannot be equal or later than exit date\n";
+              continue;
+            }
+            record * new_rec_ptr = new record(tat); //dhmiourgia eggrafhs
+            if(records_htable.insert_record(new_rec_ptr) <0){ //brethhke diplotyph eggrafh. termatismos!
+              std::cout << "brethhke diplotypo id eggrafhs. Den eisagw!\n";
+              continue;
+            }
+            diseases_htable.insert_record(new_rec_ptr); //eisagwgh ston dis HT
+            countries_htable.insert_record(new_rec_ptr); //eisagwgh ston countries HT
+
           }
           else
             std::cout << "Lathos sta orismata. try again...\n";
