@@ -19,6 +19,36 @@ cdHashTable::~cdHashTable(){
 
 }
 
+//leitourgei kai gia disease k gia country
+void cdHashTable::recordPatientExit(std::string disease_country){
+  unsigned hval = hash_str(disease_country); //hasharei to diseaseID
+  hval = hval % size; //gia na pame sth swsth thesh pinaka
+
+  if(table[hval] == NULL){ //Auth h periptwsh de tha ginei pote sthn askhsh
+    std::cout << "Den yparxei h arrwstia/xwra (akoma)\n";
+    return;
+  }
+  else{
+    chain_node * currptr = table[hval];
+    while(currptr!= NULL){ //to psaxnei dieksodika wste na enhmerwthei o curr deikths
+      block_entry * buroku = currptr->block;
+      for(unsigned int i=0; i< currptr->block_size; i++){
+        if(buroku[i].dis_name_ptr == NULL)
+          continue;
+        if(*(buroku[i].dis_name_ptr) == disease_country){
+          buroku[i].currval -= 1; //phre eksithrio, meiwnetai o metrhths kai telos
+          return;
+        }
+      }//telos for gia block
+      currptr = currptr->next ;
+    }//telos while gia orizontia lista
+
+  }//telos else
+  std::cout << "De bre8hke h arrwstia/xwra\n";
+  return;
+}
+
+//dikh moy ektypwsh
 void cdHashTable::print_contents(){
   for(unsigned int i=0; i<size; i++){
     std::cout << "anoigw thn " << i << " thesh tou pinaka\n";

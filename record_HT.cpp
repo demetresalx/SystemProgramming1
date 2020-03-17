@@ -64,3 +64,36 @@ void record_HT::print_contents(){
     }//telos else
   }//telos for gia kathe alusida
 }//telos sunarthshs
+
+//gia antistoixo erwthma
+record * record_HT::recordPatientExit(std::string recid, std::string exitd ){
+  unsigned hval = hash_str(recid); //hasharei to recordID
+  hval = hval % size; //gia na pame sth swsth thesh pinaka
+
+  if(table[hval] == NULL){ //ean den yparxei alusida ekei, den yparxei h eggrafh
+    return NULL;
+  }
+  else{ //yparxei alusida, pame na broume to id an yparxei
+    record_HT_node * currptr = table[hval];
+    while(currptr->next != NULL){ //paei sto teleutaio
+      if(currptr->rec_ptr->get_recordID() == recid){ //to brhkame
+        //std::cout << currptr->rec_ptr->get_entryDate() << " " << exitd;
+        if(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller"){ //prepei to yparxon entry date na einai mikrotero tou exitdate poy dinoume twra
+          return NULL;
+        }
+        currptr->rec_ptr->set_exitDate(exitd); //to thesame
+        return currptr->rec_ptr;
+      }
+      currptr = currptr->next ;
+    }//telos while
+    if(currptr->rec_ptr->get_recordID() == recid){ //to brhkame
+      if(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller"){ //prepei to yparxon entry date na einai mikrotero tou exitdate poy dinoume twra
+        return NULL;
+      }
+      currptr->rec_ptr->set_exitDate(exitd); //to thesame
+      return currptr->rec_ptr;
+    }
+  }
+  return NULL; //egine ok, return 0
+
+}//telos sunarthshs

@@ -67,6 +67,7 @@ int main(int argc, char *argv[]){
 
   }//telos while read file
   //PAME GIA USER INPUT
+  std::cout << "Data ready. Start giving commands!\n";
   while(true){
     getline(std::cin, line); //diabazei grammh apo keyboard
     if(line == "/exit")
@@ -124,6 +125,14 @@ int main(int argc, char *argv[]){
             std::string tat[7];
             for(unsigned int k=1; k<8; k++)
               tat[k-1] = requ[k];
+            if(tat[5] == "-"){
+              std::cout << "can't have - as entry date\n";
+              continue;
+            }
+            if(is_date_ok(tat[5]) == false){
+              std::cout << "bad date...\n";
+              continue;
+            }
             record * new_rec_ptr = new record(tat); //dhmiourgia eggrafhs
             if(records_htable.insert_record(new_rec_ptr) <0){ //brethhke diplotyph eggrafh. termatismos!
               std::cout << "brethhke diplotypo id eggrafhs. Den eisagw!\n";
@@ -138,7 +147,7 @@ int main(int argc, char *argv[]){
             for(unsigned int k=1; k<8; k++)
               tat[k-1] = requ[k];
             if(dates_compare(tat[5], tat[6]) != "smaller"){ //kakws orismeno date
-              std::cout << "entry date cannot be equal or later than exit date\n";
+              std::cout << "entry date cannot be equal or later than exit date or bad date\n";
               continue;
             }
             record * new_rec_ptr = new record(tat); //dhmiourgia eggrafhs
@@ -155,7 +164,21 @@ int main(int argc, char *argv[]){
       }
       else if(requ[0] == "/recordPatientExit"){
           if(ind == 3){
-            //doulitsa
+            if(requ[2] == "-"){
+              std::cout << "You can't insert a - exit date. Doesn't make sense in the same record\n";
+              continue;
+            }
+            if(is_date_ok(requ[2]) == false){
+              std::cout << "bad date defined\n";
+              continue;
+            }
+            record * the_rec = records_htable.recordPatientExit(requ[1], requ[2]);
+            if( the_rec == NULL){
+              std::cout << "H eggrafh den yparxei h exit date nwritero/iso tou entry date\n";
+              continue;
+            }
+            diseases_htable.recordPatientExit(the_rec->get_diseaseID()); //enhmerwnei ton metrhth curr
+
           }
           else
             std::cout << "Lathos sta orismata. try again...\n";

@@ -3,9 +3,12 @@
 //h sunarthsh epistrefei to katallhlo apotelesma gia to an to date1 einai megalutero, iso h mikrotero tou date2
 std::string dates_compare(std::string date1, std::string date2){
 
-  if(date2 == "-")
-    return "smaller"; //den exei bgei akoma, eimaste ok me thn paula.
-
+  if(is_date_ok(date1) == false)
+    return "problem";
+  if(is_date_ok(date2) == false)
+    return "problem";
+  if(date1 == "-") //de ginetai na mhn exei entry date
+    return "problem";
   int params_count =0;
   std::string intermediate;
   std::stringstream check1(date1);
@@ -15,6 +18,9 @@ std::string dates_compare(std::string date1, std::string date2){
         params_count++;
   } //telos while eksagwghs gnwrismatwn apo date1
   //date2
+  if(date2 == "-")
+    return "smaller"; //den exei bgei akoma, eimaste ok me thn paula.
+
   int params_count2 =0;
   std::stringstream check2(date2);
   int date2_parts[3]; //mia thesh gia mera, mia gia mhna mia gia xronia.
@@ -22,6 +28,7 @@ std::string dates_compare(std::string date1, std::string date2){
         date2_parts[params_count2] = stoi(intermediate);
         params_count2++;
   }//telos while eksagwghs gnwrismatwn apo date2
+
 
   if(params_count2 != params_count)//problhmatiko input. de tha eprepe na dothei etsi sumfwna me ekfwnhsh
     return "kakws orismena dates. shouldn't happen kata ekfwnhsh";
@@ -59,4 +66,34 @@ unsigned hash_str(std::string str)
         hash *= prime;
     }
    return hash;
+}
+
+//elegxw an ena date einai ok
+bool is_date_ok(std::string dato){
+  if(dato == "-")
+    return true;
+  int params_count =0;
+  std::string intermediate;
+  std::stringstream check1(dato);
+  int date1_parts[3]; //mia thesh gia mera, mia gia mhna mia gia xronia.
+  while(getline(check1, intermediate, '-')) {
+        //std::cout << intermediate;
+        date1_parts[params_count] = stoi(intermediate);
+        params_count++;
+  } //telos while eksagwghs gnwrismatwn apo dato
+  if(params_count != 3) //den to zorizoume. einai lathos
+    return false;
+  if((date1_parts[1] == 1) || (date1_parts[1] == 3) || (date1_parts[1] == 5) || (date1_parts[1] == 7) || (date1_parts[1] == 8) || (date1_parts[1] == 10) || (date1_parts[1] == 12)){
+    if((date1_parts[0] <= 31)&&(date1_parts[0] >= 1))
+      return true;
+  }
+  else if((date1_parts[1] == 4) || (date1_parts[1] == 6) || (date1_parts[1] == 9) || (date1_parts[1] == 11) ){
+    if((date1_parts[0] <= 30)&&(date1_parts[0] >= 1))
+      return true;
+  }
+  else if(date1_parts[1] == 2){
+    if((date1_parts[0] <= 29)&&(date1_parts[0] >= 1))
+      return true;
+  }
+  return false;
 }

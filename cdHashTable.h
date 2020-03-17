@@ -46,6 +46,7 @@ public:
   ~cdHashTable();
   void print_contents(); //ektypwnei auta p exei so far
   virtual int insert_record(record * ) {}; //to kathe derived class tha xeristei diaforetiko kleidi
+  void recordPatientExit(std::string ); //gia to antistoixo erwthma
 };
 
 class diseaseHashTable : public cdHashTable { //o hash table gia disease
