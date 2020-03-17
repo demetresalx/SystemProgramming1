@@ -18,6 +18,18 @@ public:
   void print_contents();
 };
 
+//epikourikh klash gia erwthmata date1 date2
+class search_containter{
+public:
+  int index; //gia tis eisagwges/eksagwges
+  reclist ** arr; //ekei einai oi listes poy tha ginoun fetch
+
+  search_containter();
+  search_containter(int );
+  ~search_containter();
+  void insert_reclist(reclist* );
+  int count_exit_limit(std::string );
+};
 
 class BBST{
 public:
@@ -31,7 +43,10 @@ public:
   ~BBST();
   int insert_record(record *);
   void print_contents();
+  void collect_dated_reclists(BBST* ,std::string , search_containter*); //sunarthsh arwgos erwthmatwn 1 kai 2
 
 };
+
+
 
 #endif

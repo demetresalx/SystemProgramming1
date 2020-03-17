@@ -81,10 +81,19 @@ int main(int argc, char *argv[]){
       }//telos while eksagwghs gnwrismatwn apo entolh
       if(requ[0] == "/globalDiseaseStats"){
           if(ind == 1){ //xwris ta proairetika date1 k date2
-            //doulitsa xwris country
+            diseases_htable.total_recs_per_cat();
+            //countries_htable.total_recs_per_cat();
           }
           else if(ind ==3){ //me proairetika orismata date1 k date2
-            //me date1 k date2
+            if((dates_compare(requ[1], requ[2]) != "smaller") && (dates_compare(requ[1], requ[2]) != "equal") ){ //kakws orismeno date
+              std::cout << "Date1 must be earlier or equal to Date2\n";
+              continue;
+            }
+            if((requ[1] == "-") || requ[2]== "-"){
+              std::cout << "Date1 and Date2 can't be - , it's supposed to be an INTERVAL\n";
+              continue;
+            }
+            diseases_htable.total_recs_per_cat(requ[1], requ[2]);
           }
           else
             std::cout << "Lathos sta orismata. try again...\n";

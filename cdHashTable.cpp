@@ -48,6 +48,67 @@ void cdHashTable::recordPatientExit(std::string disease_country){
   return;
 }
 
+//gia to globalDiseaseStats XWRIS orismata dates
+void cdHashTable::total_recs_per_cat(){
+  if(true){ //pairnei kenh sumvoloseira an den oristhke. kanei th genikh periptwsh gia kathe iwsh
+    int tototal =0;
+    for(unsigned int i=0; i<size; i++){
+      if(table[i] == NULL) //kenh alusida
+        continue;
+      else{
+        chain_node * currptr = table[i];
+        block_entry * buroku = NULL;
+        while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH. MONO MERIKA PEDIA ALLA MPORW KAI OLA
+          buroku = currptr->block;
+          for(unsigned int j=0; j<currptr->block_size; j++){
+            if(buroku[j].dis_name_ptr == NULL) //no entry edw
+              continue;
+            else{
+              std::cout << "For " << *(buroku[j].dis_name_ptr) << " : there are " << buroku[j].totalval << " patients recorded\n";
+              tototal += buroku[j].totalval;
+            }
+          }//telos for gia block
+          currptr = currptr->next ;
+        }//telos while gia orizontia lista
+      }//telos else kenhs alusidas
+    }//telos for gia kathe alusida
+    std::cout << "A total of " << tototal << " patients recorded.\n";
+  }//telos if genikh periptwsh
+
+}//telos sunarthshs
+
+//gia to globalDiseaseStats ME orismata date1, date2
+void cdHashTable::total_recs_per_cat(std::string date1, std::string date2){
+    int tototal=0;
+    for(unsigned int i=0; i<size; i++){
+      if(table[i] == NULL) //kenh alusida
+        continue;
+      else{
+        chain_node * currptr = table[i];
+        block_entry * buroku = NULL;
+        while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH. MONO MERIKA PEDIA ALLA MPORW KAI OLA
+          buroku = currptr->block;
+          for(unsigned int j=0; j<currptr->block_size; j++){
+            if(buroku[j].dis_name_ptr == NULL) //no entry edw
+              continue;
+            else{
+              //EDW GINETAI H DOULITSA ME TO DENDRO
+              search_containter querycontainer(buroku[j].totalval); //to megisto plhthos eggrafwn einai o sunolikos arithmos eggrafwn auths ths atheneias/xwras
+              //twra o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2. H parakatw entolh ftiaxnei kai thn allh proypothesh
+              buroku[j].tree_ptr->collect_dated_reclists(buroku[j].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
+              int number_to_present = querycontainer.count_exit_limit(date1);
+              std::cout << "For " << *(buroku[j].dis_name_ptr) << " : there are " << number_to_present << " patients recorded within dates provided\n";
+              tototal += number_to_present;
+            }
+          }//telos for gia block
+          currptr = currptr->next ;
+        }//telos while gia orizontia lista
+      }//telos else kenhs alusidas
+    }//telos for gia kathe alusida
+  //telos if genikh periptwsh
+  std::cout << "A total of " << tototal << " patients recorded within dates provided.\n"; 
+}//telos sunarthshs
+
 //dikh moy ektypwsh
 void cdHashTable::print_contents(){
   for(unsigned int i=0; i<size; i++){
@@ -191,7 +252,8 @@ int countryHashTable::insert_record(record* rec){
 //CHAIN NODE
 chain_node::chain_node(int sz){
   next = NULL;
-  block_size = sz / sizeof(block_entry); //stathero megethos dioti exw deiktes sth domh block entry
+  //SUMPERILAMVENTAI STO BUCKETSIZE KAI O DEIKTHS STO NEXT KAI O AKERAIOS POY KRATAW
+  block_size = (sz-sizeof(chain_node *)-sizeof(int)) / sizeof(block_entry); //stathero megethos dioti exw deiktes sth domh block entry
   if(block_size < 1)
     block_size = 1; //toulaxiston ena element mesa
   block = new block_entry[block_size]; //toses theseis oses leei h ekfwnhsh

@@ -47,6 +47,9 @@ public:
   void print_contents(); //ektypwnei auta p exei so far
   virtual int insert_record(record * ) {}; //to kathe derived class tha xeristei diaforetiko kleidi
   void recordPatientExit(std::string ); //gia to antistoixo erwthma
+  void total_recs_per_cat(); //gia to globalDiseaseStats me 0 orismata
+  void total_recs_per_cat(std::string, std::string ); //gia to globalDiseaseStats me dates orismata
+
 };
 
 class diseaseHashTable : public cdHashTable { //o hash table gia disease
