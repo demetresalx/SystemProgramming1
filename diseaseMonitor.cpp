@@ -172,12 +172,18 @@ int main(int argc, char *argv[]){
               std::cout << "bad date defined\n";
               continue;
             }
-            record * the_rec = records_htable.recordPatientExit(requ[1], requ[2]);
+            bool wasinside = false;
+            record * the_rec = records_htable.recordPatientExit(requ[1], requ[2], &wasinside);
             if( the_rec == NULL){
-              std::cout << "H eggrafh den yparxei h exit date nwritero/iso tou entry date\n";
+              std::cout << "Error:Date given equal or earlier than existing entryDate\n";
+              std::cout << "OR record does not exist (yet).\n";
               continue;
             }
-            diseases_htable.recordPatientExit(the_rec->get_diseaseID()); //enhmerwnei ton metrhth curr
+            if(wasinside == true){ //ean dhladh htan asthenhs ektos nosokomeiou hdh (non - se exitdate) mhn enhmerwseis metrhth
+              diseases_htable.recordPatientExit(the_rec->get_diseaseID()); //enhmerwnei ton metrhth curr gia disease
+              countries_htable.recordPatientExit(the_rec->get_country()); //enhmerwnei k to metrhth curr gia xwra
+            }
+
 
           }
           else

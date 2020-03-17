@@ -28,7 +28,7 @@ class record_HT{ // o HT
 
     int insert_record(record * ); //vazei ena record mesa sto HT. HASHING BASEI ID
     void print_contents();
-    record * recordPatientExit(std::string ,std::string ); //gia to antistoixo erwthma
+    record * recordPatientExit(std::string ,std::string , bool * ); //gia to antistoixo erwthma
 
 };
 

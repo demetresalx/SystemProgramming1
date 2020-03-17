@@ -66,7 +66,7 @@ void record_HT::print_contents(){
 }//telos sunarthshs
 
 //gia antistoixo erwthma
-record * record_HT::recordPatientExit(std::string recid, std::string exitd ){
+record * record_HT::recordPatientExit(std::string recid, std::string exitd , bool * be_inside){
   unsigned hval = hash_str(recid); //hasharei to recordID
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
@@ -81,6 +81,8 @@ record * record_HT::recordPatientExit(std::string recid, std::string exitd ){
         if(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller"){ //prepei to yparxon entry date na einai mikrotero tou exitdate poy dinoume twra
           return NULL;
         }
+        if(currptr->rec_ptr->get_exitDate() == "-") //htan sto nosokomeio kai bghke
+          *be_inside = true; //na paei meta kai o allos HT ths askhshs na enhmerwsei t metrhth current
         currptr->rec_ptr->set_exitDate(exitd); //to thesame
         return currptr->rec_ptr;
       }
@@ -90,6 +92,8 @@ record * record_HT::recordPatientExit(std::string recid, std::string exitd ){
       if(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller"){ //prepei to yparxon entry date na einai mikrotero tou exitdate poy dinoume twra
         return NULL;
       }
+      if(currptr->rec_ptr->get_exitDate() == "-") //htan nosokomeio kai bghke
+        *be_inside = true; //na paei meta kai o allos HT ths askhshs na enhmerwsei t metrhth current
       currptr->rec_ptr->set_exitDate(exitd); //to thesame
       return currptr->rec_ptr;
     }
