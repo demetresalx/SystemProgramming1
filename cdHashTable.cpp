@@ -271,7 +271,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
           //twra o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2. H parakatw entolh ftiaxnei kai thn allh proypothesh
           buroku[i].tree_ptr->collect_dated_reclists(buroku[i].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
           int number_to_present = querycontainer.count_exit_limit(date1, country);
-          std::cout << "For " << *(buroku[i].dis_name_ptr) << "in " << country << " : there are " << number_to_present << " patients recorded within dates provided\n";
+          std::cout << "For " << *(buroku[i].dis_name_ptr) << " in " << country << " : there are " << number_to_present << " patients recorded within dates provided\n";
           return;
         }
       }//telos for gia block
