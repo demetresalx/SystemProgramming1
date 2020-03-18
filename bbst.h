@@ -28,7 +28,8 @@ public:
   search_containter(int );
   ~search_containter();
   void insert_reclist(reclist* );
-  int count_exit_limit(std::string );
+  int count_exit_limit(std::string ); //kanei disqualify oses den exoun exitdate > date1
+  int count_exit_limit(std::string , std::string ); //gia diseaseFrequency me orisma country
 };
 
 class BBST{

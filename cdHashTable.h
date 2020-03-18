@@ -49,7 +49,6 @@ public:
   void recordPatientExit(std::string ); //gia to antistoixo erwthma
   void total_recs_per_cat(); //gia to globalDiseaseStats me 0 orismata
   void total_recs_per_cat(std::string, std::string ); //gia to globalDiseaseStats me dates orismata
-
 };
 
 class diseaseHashTable : public cdHashTable { //o hash table gia disease
@@ -57,6 +56,8 @@ public:
   diseaseHashTable(int, int);
   int insert_record(record * );
   void numCurrentPatients(std::string );
+  void total_recs_for_cat(std::string, std::string , std::string ); //gia to diseaseFrequency xwris orisma country
+  void total_recs_for_cat(std::string, std::string , std::string , std::string ); //gia to diseaseFrequency ME orisma country
 };
 
 class countryHashTable : public cdHashTable { //o hash table gia disease

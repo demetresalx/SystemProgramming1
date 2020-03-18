@@ -86,7 +86,7 @@ int main(int argc, char *argv[]){
           }
           else if(ind ==3){ //me proairetika orismata date1 k date2
             if((dates_compare(requ[1], requ[2]) != "smaller") && (dates_compare(requ[1], requ[2]) != "equal") ){ //kakws orismeno date
-              std::cout << "Date1 must be earlier or equal to Date2\n";
+              std::cout << "Date1 must be earlier or equal to Date2 or bad date\n";
               continue;
             }
             if((requ[1] == "-") || requ[2]== "-"){
@@ -100,10 +100,26 @@ int main(int argc, char *argv[]){
       }
       else if(requ[0] == "/diseaseFrequency"){
           if(ind == 4){ //xwris to proairetiko country
-            //doulitsa xwris country
+            if((dates_compare(requ[2], requ[3]) != "smaller") && (dates_compare(requ[2], requ[3]) != "equal") ){ //kakws orismeno date
+              std::cout << "Date1 must be earlier or equal to Date2 or bad date\n";
+              continue;
+            }
+            if((requ[2] == "-") || requ[3]== "-"){
+              std::cout << "Date1 and Date2 can't be - , it's supposed to be an INTERVAL\n";
+              continue;
+            }
+            diseases_htable.total_recs_for_cat( requ[1],requ[2], requ[3]);
           }
           else if(ind ==5){ //me proairetiko orisma country
-            //me country
+            if((dates_compare(requ[2], requ[3]) != "smaller") && (dates_compare(requ[2], requ[3]) != "equal") ){ //kakws orismeno date
+              std::cout << "Date1 must be earlier or equal to Date2 or bad date\n";
+              continue;
+            }
+            if((requ[2] == "-") || requ[3]== "-"){
+              std::cout << "Date1 and Date2 can't be - , it's supposed to be an INTERVAL\n";
+              continue;
+            }
+            diseases_htable.total_recs_for_cat( requ[1],requ[2], requ[3], requ[4]);
           }
           else
             std::cout << "Lathos sta orismata. try again...\n";

@@ -167,3 +167,24 @@ int search_containter::count_exit_limit(std::string date1){
   }//telos for gia thn i lista
   return num_approved;
 }//telos sunarthshs
+
+//O,TI EINAI MESA STON CONTAINER EINAI ENTRYDATE <= DATE2. KOITAZEI GIA EXITDATE > DATE1 KAI EPIPLEON COUNTRY GIA THN DISEASEFREQUENCY
+int search_containter::count_exit_limit(std::string date1, std::string country){
+  int num_approved =0;
+  for(unsigned int i=0; i<index; i++){
+    if(arr[i] == NULL) //oi eisagwges ginontai h mia meta thn allh ksekinwntas apo to 0. to prwto null shmainei den exei alles
+      return num_approved;
+    reclist * currptr = arr[i];
+    while(currptr != NULL){
+      if((currptr->recptr->get_exitDate() == "-") && (currptr->recptr->get_country() == country)) //einai akoma mesa kai exei th xwra mas. ton theloyme
+        num_approved++;
+      else if((dates_compare(currptr->recptr->get_exitDate(), date1) == "bigger" )&& (currptr->recptr->get_country() == country)){ //koitame kai xwra pleon
+        num_approved++; //exei exitdate megalutero tou date1, to theloyme
+      }
+      else
+        num_approved += 0;
+      currptr = currptr->next;
+    }//telos while gia lista eggrafwn
+  }//telos for gia thn i lista
+  return num_approved;
+}//telos sunarthshs

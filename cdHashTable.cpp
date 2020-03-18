@@ -106,8 +106,9 @@ void cdHashTable::total_recs_per_cat(std::string date1, std::string date2){
       }//telos else kenhs alusidas
     }//telos for gia kathe alusida
   //telos if genikh periptwsh
-  std::cout << "A total of " << tototal << " patients recorded within dates provided.\n"; 
+  std::cout << "A total of " << tototal << " patients recorded within dates provided.\n";
 }//telos sunarthshs
+
 
 //dikh moy ektypwsh
 void cdHashTable::print_contents(){
@@ -214,6 +215,73 @@ void diseaseHashTable::numCurrentPatients(std::string disease){
   }//telos else periptwshs poy exoume orisma disease
 }//telos sunarthshs
 
+//gia to diseaseFrequency xwris country
+void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string date1, std::string date2){
+  unsigned hval = hash_str(diseasename); //hasharei to diseaseID
+  hval = hval % size; //gia na pame sth swsth thesh pinaka
+
+  if(table[hval] == NULL){ //Auth h periptwsh de tha ginei pote sthn askhsh
+    std::cout << "Den yparxei h arrwstia/xwra (akoma)\n";
+    return;
+  }
+  else{
+    chain_node * currptr = table[hval];
+    while(currptr!= NULL){ //to psaxnei dieksodika wste na brethei h astheneia
+      block_entry * buroku = currptr->block;
+      for(unsigned int i=0; i< currptr->block_size; i++){
+        if(buroku[i].dis_name_ptr == NULL)
+          continue;
+        if(*(buroku[i].dis_name_ptr) == diseasename){
+          //EDW GINETAI H DOULITSA ME TO DENDRO
+          search_containter querycontainer(buroku[i].totalval); //to megisto plhthos eggrafwn einai o sunolikos arithmos eggrafwn auths ths atheneias/xwras
+          //twra o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2. H parakatw entolh ftiaxnei kai thn allh proypothesh
+          buroku[i].tree_ptr->collect_dated_reclists(buroku[i].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
+          int number_to_present = querycontainer.count_exit_limit(date1);
+          std::cout << "For " << *(buroku[i].dis_name_ptr) << " : there are " << number_to_present << " patients recorded within dates provided\n";
+          return;
+        }
+      }//telos for gia block
+      currptr = currptr->next ;
+    }//telos while gia orizontia lista
+
+  }//telos else
+  std::cout << "De bre8hke h arrwstia\n";
+  return;
+}
+
+//gia to diseaseFrequency ME country
+void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string date1, std::string date2, std::string country){
+  unsigned hval = hash_str(diseasename); //hasharei to diseaseID
+  hval = hval % size; //gia na pame sth swsth thesh pinaka
+
+  if(table[hval] == NULL){ //Auth h periptwsh de tha ginei pote sthn askhsh
+    std::cout << "Den yparxei h arrwstia/xwra (akoma)\n";
+    return;
+  }
+  else{
+    chain_node * currptr = table[hval];
+    while(currptr!= NULL){ //to psaxnei dieksodika wste na brethei h astheneia
+      block_entry * buroku = currptr->block;
+      for(unsigned int i=0; i< currptr->block_size; i++){
+        if(buroku[i].dis_name_ptr == NULL)
+          continue;
+        if(*(buroku[i].dis_name_ptr) == diseasename){
+          //EDW GINETAI H DOULITSA ME TO DENDRO
+          search_containter querycontainer(buroku[i].totalval); //to megisto plhthos eggrafwn einai o sunolikos arithmos eggrafwn auths ths atheneias/xwras
+          //twra o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2. H parakatw entolh ftiaxnei kai thn allh proypothesh
+          buroku[i].tree_ptr->collect_dated_reclists(buroku[i].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
+          int number_to_present = querycontainer.count_exit_limit(date1, country);
+          std::cout << "For " << *(buroku[i].dis_name_ptr) << "in " << country << " : there are " << number_to_present << " patients recorded within dates provided\n";
+          return;
+        }
+      }//telos for gia block
+      currptr = currptr->next ;
+    }//telos while gia orizontia lista
+
+  }//telos else
+  std::cout << "De bre8hke h arrwstia\n";
+  return;
+}
 
 //COUNTRY
 //derived parametrized constructor
