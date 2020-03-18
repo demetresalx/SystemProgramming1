@@ -35,7 +35,7 @@ int main(int argc, char *argv[]){
     }
 
   } //telos for command line args
-  record_HT records_htable(diseaseHashtableNumOfEntries+countryHashtableNumOfEntries); //o DIKOS MOU HT gia tis eggrafes basei recordID megethous h1+h2. KALUTEROS APO APLH LISTA
+  record_HT records_htable(2*(diseaseHashtableNumOfEntries+countryHashtableNumOfEntries)); //o DIKOS MOU HT gia tis eggrafes basei recordID megethous h1+h2. KALUTEROS APO APLH LISTA
   diseaseHashTable diseases_htable(diseaseHashtableNumOfEntries, bucketSize); //O ZHTOUMENOS HT GIA DISEASE
   countryHashTable countries_htable(countryHashtableNumOfEntries, bucketSize); //O ZHTOUMENOS HT GIA COUNTRY
   //std::cout << "params are: " << dataset_path << " " << diseaseHashtableNumOfEntries << " " << countryHashtableNumOfEntries << " " << bucketSize << "\n";
@@ -68,8 +68,8 @@ int main(int argc, char *argv[]){
   }//telos while read file
   //PAME GIA USER INPUT
   std::cout << "Data ready. Start giving commands!\n";
-  while(true){
-    getline(std::cin, line); //diabazei grammh apo keyboard
+  while(getline(std::cin, line)){
+    //getline(std::cin, line); //diabazei grammh apo keyboard
     if(line == "/exit")
       break; //olh h desmeumenh mnhmh apodesmeuetai mesw paneksupna sxediasmenwn destructors. Des se kathe class
     else{
