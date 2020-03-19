@@ -189,24 +189,24 @@ int main(int argc, char *argv[]){
       }
       else if(requ[0] == "/recordPatientExit"){
           if(ind == 3){
-            if(requ[2] == "-"){
+            /*if(requ[2] == "-"){
               std::cout << "You can't insert a - exit date. Doesn't make sense in the same record\n";
               continue;
-            }
+            }*/
             if(is_date_ok(requ[2]) == false){
               std::cout << "bad date defined\n";
               continue;
             }
-            bool wasinside = false;
-            record * the_rec = records_htable.recordPatientExit(requ[1], requ[2], &wasinside);
+            std::string dowithcurr = "tipota";
+            record * the_rec = records_htable.recordPatientExit(requ[1], requ[2], &dowithcurr);
             if( the_rec == NULL){
-              std::cout << "Error:Date given equal or earlier than existing entryDate\n";
+              std::cout << "Error:Date given earlier than existing entryDate\n";
               std::cout << "OR record does not exist (yet).\n";
               continue;
             }
-            if(wasinside == true){ //ean dhladh htan asthenhs ektos nosokomeiou hdh (non - se exitdate) mhn enhmerwseis metrhth
-              diseases_htable.recordPatientExit(the_rec->get_diseaseID()); //enhmerwnei ton metrhth curr gia disease
-              countries_htable.recordPatientExit(the_rec->get_country()); //enhmerwnei k to metrhth curr gia xwra
+            if((dowithcurr == "increase") || (dowithcurr == "decrease")){ //ean dhladh htan asthenhs ektos nosokomeiou hdh (non - se exitdate) mhn enhmerwseis metrhth
+              diseases_htable.recordPatientExit(the_rec->get_diseaseID(), dowithcurr); //enhmerwnei ton metrhth curr gia disease
+              countries_htable.recordPatientExit(the_rec->get_country(), dowithcurr); //enhmerwnei k to metrhth curr gia xwra
             }
 
 

@@ -66,7 +66,7 @@ void record_HT::print_contents(){
 }//telos sunarthshs
 
 //gia antistoixo erwthma
-record * record_HT::recordPatientExit(std::string recid, std::string exitd , bool * be_inside){
+record * record_HT::recordPatientExit(std::string recid, std::string exitd , std::string * whattodowithcurr){
   unsigned hval = hash_str(recid); //hasharei to recordID
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
@@ -81,23 +81,45 @@ record * record_HT::recordPatientExit(std::string recid, std::string exitd , boo
         if((dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller")&&(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "equal")){ //prepei to yparxon entry date na einai mikrotero h iso tou exitdate poy dinoume twra
           return NULL;
         }
-        if(currptr->rec_ptr->get_exitDate() == "-") //htan sto nosokomeio kai bghke
-          *be_inside = true; //na paei meta kai o allos HT ths askhshs na enhmerwsei t metrhth current
+        //if cases gia th sxesh tou exitd me ton current metrhth stis alles domes
+        if(exitd == "-"){ //an mas edwse - (den apantane sto piatsa pws to xeirizomaste ara to lamvanw kai auto ypopsin)
+          if(currptr->rec_ptr->get_exitDate() == "-")
+            *whattodowithcurr = "tipota"; //htan mesa sto nosokomeio kai paramenei mesa.
+          else
+            *whattodowithcurr = "increase"; //ksanampainei sto nosokomeio, o curr metrhths prepei na anebei
+        }
+        else{ //de mas edwse -
+            if(currptr->rec_ptr->get_exitDate() == "-")
+              *whattodowithcurr = "decrease"; //o asthenhs htan mesa sto nosokomeio kai twra phre date ara bgainei kai prepei na meiwthei o curr metrhths
+            else
+              *whattodowithcurr = "tipota"; //htan ektos nosokomeiou kai paramenei ektos nosokomeiou
+        }
         currptr->rec_ptr->set_exitDate(exitd); //to thesame
         return currptr->rec_ptr;
-      }
+      }//telos if brhkame thn eggrafh
       currptr = currptr->next ;
     }//telos while
     if(currptr->rec_ptr->get_recordID() == recid){ //to brhkame
       if((dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller")&&(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "equal")){ //prepei to yparxon entry date na einai mikrotero h iso tou exitdate poy dinoume twra
         return NULL;
       }
-      if(currptr->rec_ptr->get_exitDate() == "-") //htan nosokomeio kai bghke
-        *be_inside = true; //na paei meta kai o allos HT ths askhshs na enhmerwsei t metrhth current
+      //if cases gia th sxesh tou exitd me ton current metrhth stis alles domes
+      if(exitd == "-"){ //an mas edwse - (den apantane sto piatsa pws to xeirizomaste ara to lamvanw kai auto ypopsin)
+        if(currptr->rec_ptr->get_exitDate() == "-")
+          *whattodowithcurr = "tipota"; //htan mesa sto nosokomeio kai paramenei mesa.
+        else
+          *whattodowithcurr = "increase"; //ksanampainei sto nosokomeio, o curr metrhths prepei na anebei
+      }
+      else{ //de mas edwse -
+          if(currptr->rec_ptr->get_exitDate() == "-")
+            *whattodowithcurr = "decrease"; //o asthenhs htan mesa sto nosokomeio kai twra phre date ara bgainei kai prepei na meiwthei o curr metrhths
+          else
+            *whattodowithcurr = "tipota"; //htan ektos nosokomeiou kai paramenei ektos nosokomeiou
+      }
       currptr->rec_ptr->set_exitDate(exitd); //to thesame
       return currptr->rec_ptr;
-    }
-  }
+    }//telos if brhkame thn eggrafh
+  }//telos else yparxei alysida
   return NULL; //egine ok, return 0
 
 }//telos sunarthshs

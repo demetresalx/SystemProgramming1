@@ -20,7 +20,7 @@ cdHashTable::~cdHashTable(){
 }
 
 //leitourgei kai gia disease k gia country
-void cdHashTable::recordPatientExit(std::string disease_country){
+void cdHashTable::recordPatientExit(std::string disease_country, std::string status){
   unsigned hval = hash_str(disease_country); //hasharei to diseaseID
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
@@ -36,7 +36,10 @@ void cdHashTable::recordPatientExit(std::string disease_country){
         if(buroku[i].dis_name_ptr == NULL)
           continue;
         if(*(buroku[i].dis_name_ptr) == disease_country){
-          buroku[i].currval -= 1; //phre eksithrio, meiwnetai o metrhths kai telos
+          if(status == "increase")
+            buroku[i].currval += 1; //ksanampainei nosokomeio, auksanetai o metrhths kai telos
+          if(status == "decrease")
+            buroku[i].currval -= 1; //phre eksithrio, meiwnetai o metrhths kai telos
           return;
         }
       }//telos for gia block
