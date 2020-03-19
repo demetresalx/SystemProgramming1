@@ -8,6 +8,7 @@
 #include "record_HT.h"
 #include "utils.h"
 #include "cdHashTable.h"
+#include "myheap.h"
 
 
 int main(int argc, char *argv[]){

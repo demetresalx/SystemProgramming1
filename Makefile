@@ -1,7 +1,7 @@
 CC=g++  -std=c++11
 CFLAGS=-c -Wpedantic #-Ofast
 LDFLAGS=
-SOURCES=diseaseMonitor.cpp record.cpp record_HT.cpp utils.cpp cdHashTable.cpp bbst.cpp
+SOURCES=diseaseMonitor.cpp record.cpp record_HT.cpp utils.cpp cdHashTable.cpp bbst.cpp myheap.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=diseaseMonitor
 
