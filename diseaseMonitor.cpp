@@ -54,7 +54,7 @@ int main(int argc, char *argv[]){
     }//telos while eksagwghs gnwrismatwn apo grammh
     if(params_count != 7) //problhmatiko input, prepei na akoloythei motivo ekfwnhshs. Tha faei skip auth h eggrafh
       continue;
-    if(dates_compare(record_parts[5], record_parts[6]) != "smaller") //ean h entrydate einai megaluterh h ish ths exitdate
+    if((dates_compare(record_parts[5], record_parts[6]) != "smaller") && (dates_compare(record_parts[5], record_parts[6]) != "equal")) //ean h entrydate einai megaluterh ths exitdate aporriptetai
       continue;
     record * new_rec_ptr = new record(record_parts); //dhmiourgia eggrafhs
     if(records_htable.insert_record(new_rec_ptr) <0){ //brethhke diplotyph eggrafh. termatismos!
@@ -171,8 +171,8 @@ int main(int argc, char *argv[]){
             std::string tat[7];
             for(unsigned int k=1; k<8; k++)
               tat[k-1] = requ[k];
-            if(dates_compare(tat[5], tat[6]) != "smaller"){ //kakws orismeno date
-              std::cout << "entry date cannot be equal or later than exit date or bad date\n";
+            if((dates_compare(tat[5], tat[6]) != "smaller") && (dates_compare(tat[5], tat[6]) != "equal")){ //kakws orismeno date
+              std::cout << "entry date cannot later than exit date or bad date\n";
               continue;
             }
             record * new_rec_ptr = new record(tat); //dhmiourgia eggrafhs

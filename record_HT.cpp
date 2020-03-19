@@ -78,7 +78,7 @@ record * record_HT::recordPatientExit(std::string recid, std::string exitd , boo
     while(currptr->next != NULL){ //paei sto teleutaio
       if(currptr->rec_ptr->get_recordID() == recid){ //to brhkame
         //std::cout << currptr->rec_ptr->get_entryDate() << " " << exitd;
-        if(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller"){ //prepei to yparxon entry date na einai mikrotero tou exitdate poy dinoume twra
+        if((dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller")&&(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "equal")){ //prepei to yparxon entry date na einai mikrotero h iso tou exitdate poy dinoume twra
           return NULL;
         }
         if(currptr->rec_ptr->get_exitDate() == "-") //htan sto nosokomeio kai bghke
@@ -89,7 +89,7 @@ record * record_HT::recordPatientExit(std::string recid, std::string exitd , boo
       currptr = currptr->next ;
     }//telos while
     if(currptr->rec_ptr->get_recordID() == recid){ //to brhkame
-      if(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller"){ //prepei to yparxon entry date na einai mikrotero tou exitdate poy dinoume twra
+      if((dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "smaller")&&(dates_compare(currptr->rec_ptr->get_entryDate(), exitd) != "equal")){ //prepei to yparxon entry date na einai mikrotero h iso tou exitdate poy dinoume twra
         return NULL;
       }
       if(currptr->rec_ptr->get_exitDate() == "-") //htan nosokomeio kai bghke
