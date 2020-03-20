@@ -180,7 +180,7 @@ heapnode maxBinaryHeap::extract(){
     }
   }//telos for most significant
   latest = root;
-  std::cout << path_index << " " << number_of_nodes << "\n";
+  //std::cout << path_index << " " << number_of_nodes << "\n";
   //EDW EINAI gia na kanei to swsto arithmo step
   int stepsnum = height(number_of_nodes);
   for(unsigned int i= path_index; i<path_index+stepsnum; i++){

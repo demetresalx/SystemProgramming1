@@ -341,8 +341,12 @@ void countryHashTable::topk_diseases(int k, std::string country){
           simpldiseaseht.populate_heap(&mheap);
             std::cout << "Top " << k << " diseases for " << country << " :\n";
           for(unsigned int ka=0; ka<k; ka++){
+            if(mheap.root == NULL){
+              std::cout << "-\n"; //de ginontai alla extractions.
+              continue;
+            }
             heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
-            std::cout << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+            std::cout << ka+1<< ") " << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
           }
           return;
         }
