@@ -61,11 +61,49 @@ void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
         break;
       }
     }//telos for most significant
+    heapnode * last = NULL;
+    bool insert_done = false;
     heapnode * currnode = root;
-    while(currnode != NULL){
-
-    }
+    while(true){ //arxizei while mexri na ginei insert
+      if(path[path_index] == 1){ //1 shmainei pame deksia
+        if(currnode->right == NULL){ //ekei tha einai o teleutaios komvos
+          currnode->right = new heapnode();
+          currnode->right->cat_name = cntdis;
+          currnode->right->krousmata = numofkrousmata;
+          currnode->right->parent = currnode;
+          last = currnode->right;
+          number_of_nodes++;
+          break;
+        }//telos if null deksi
+        else{
+          currnode = currnode->right;
+          path_index++;
+        }//telos else deksi not null
+      }//telos if deksia
+      else{ //0 shmainei pame aristera
+        if(currnode->left == NULL){ //ekei tha ienai o teleutaios komvos
+          currnode->left = new heapnode();
+          currnode->left->cat_name = cntdis;
+          currnode->left->krousmata = numofkrousmata;
+          currnode->left->parent = currnode;
+          last = currnode->left;
+          number_of_nodes++;
+          break;
+        }//telos if null aristero
+        else{
+          currnode = currnode->left;
+          path_index++;
+        }//telos else aristero not null
+      }//telos else aristera
+    }//telos while gia insert
     delete[] path;
+    //ARXIZEI TO HEAPIFY == SWIMMING UP
+    currnode = last; //arxizei twra swimming apo katw pros panw
+    while(true){
+      if(currnode->parent == NULL)
+        break; //ftasame riza
+      
+    }//telos while gia swimming up
   }//telos else yparxei riza
 }//telos sunarthshs
 
