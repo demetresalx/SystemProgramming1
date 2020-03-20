@@ -16,7 +16,7 @@ public:
 
 
   heapnode();
-  heapnode(heapnode*); //constructor apo gonio
+  heapnode( const heapnode&); //copy con
   ~heapnode(); //destructor
 };
 
@@ -26,11 +26,13 @@ public:
   int number_of_nodes; //arithmos komvwn poy exei mesa o heap
   heapnode * root;
   int maxsize; //iso me to total krousmata ths xwras/astheneias. De ginetai parapanw
+  heapnode *latest; //gia th diathrhsh kuriws
 
   maxBinaryHeap();
   maxBinaryHeap(int); //total gia maxsize
   ~maxBinaryHeap();
   void insert(std::string , int ); //arrwstia/xwra kai arithmos krousmatwn
+  heapnode extract(); //bgazei th root kai kanei maintain
 };
 
 //epikourikh klassh
@@ -62,3 +64,5 @@ public:
 
 //swap periexomenou metaksu 2 heapnodes
 void swap_nodes_info(heapnode *, heapnode *);
+//ti na kanw sto swim down
+std::string make_decision(heapnode *);

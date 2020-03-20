@@ -23,15 +23,39 @@ void swap_nodes_info(heapnode * node1, heapnode * node2){
   node2->krousmata = temp.krousmata;
 }
 
+//apofasizei gia to swimdown
+std::string make_decision(heapnode *node1){
+  int leftkr = 0;
+  int rightkr = 0;
+  if(node1->left != NULL)
+    leftkr = node1->left->krousmata;
+  if(node1->right != NULL)
+    rightkr = node1->right->krousmata;
+  if(leftkr >= rightkr){ //to aristero einai megalutero
+    if(node1->krousmata >= leftkr)
+      return "tipota"; //einai megalutero kai ap ta 2 paidia tou. no prob
+    else
+      return "aristero"; //to aristero einai to megalytero ap ola, ekei prepei na kanei swap
+  }
+  else{ //deksi eiani megalutero
+    if(node1->krousmata >= rightkr)
+      return "tipota"; //einai megalutero kai ap ta 2 paidia tou. no prob
+    else
+      return "deksi"; //to deksi einai to megalytero ap ola, ekei prepei na kanei swap
+  }
+}//telos sunarthshs
+
 
 //SUNARTHSEIS MAXHEAP
 maxBinaryHeap::maxBinaryHeap(){
   root = NULL;
+  latest = NULL;
   number_of_nodes = 0;
 }
 
 maxBinaryHeap::maxBinaryHeap(int total){
   root = NULL;
+  latest = NULL;
   number_of_nodes = 0;
   maxsize = total;
 }
@@ -49,10 +73,11 @@ void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
     root->cat_name = cntdis;
     root->krousmata = numofkrousmata;
     number_of_nodes++; //anebainei o arithmos komvwn tou heap
+    latest = root;
     return;
   }
   else{ //yparxei riza
-    //ftiaxnw bitpath. Kanw ton arithmo ths theshs binary kai 1 shmainei deksia, 0 aristera
+    //ftiaxnw bitpath. Kanw ton arithmo ths theshs poy tha mpei binary kai 1 shmainei deksia, 0 aristera
     int * path = new int[maxsize]; //megistos arithmos bits gia to path to last
     int_to_bin_digit(number_of_nodes+1, maxsize, path); //twra to outta exei to bitpath poy prepei na akoloythhsw gia ton last kovmo
     int path_index = 0; //Tha broume thesh most significant bit.prepei na agnohsoume ton prwto asso giati einai h riza
@@ -62,7 +87,6 @@ void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
         break;
       }
     }//telos for most significant
-    heapnode * last = NULL;
     bool insert_done = false;
     heapnode * currnode = root;
     while(true){ //arxizei while mexri na ginei insert
@@ -72,7 +96,7 @@ void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
           currnode->right->cat_name = cntdis;
           currnode->right->krousmata = numofkrousmata;
           currnode->right->parent = currnode;
-          last = currnode->right;
+          latest = currnode->right;
           number_of_nodes++;
           break;
         }//telos if null deksi
@@ -87,7 +111,7 @@ void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
           currnode->left->cat_name = cntdis;
           currnode->left->krousmata = numofkrousmata;
           currnode->left->parent = currnode;
-          last = currnode->left;
+          latest = currnode->left;
           number_of_nodes++;
           break;
         }//telos if null aristero
@@ -100,7 +124,7 @@ void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
     delete[] path;
 ////////MAINTAIN HEAP PROPERTY///////////////////////////////////////////////
     //ARXIZEI TO MAINTAIN == SWIMMING UP
-    currnode = last; //arxizei twra swimming apo katw pros panw
+    currnode = latest; //arxizei twra swimming apo katw pros panw
     while(true){
       if(currnode->parent == NULL)
         break; //ftasame riza
@@ -114,6 +138,65 @@ void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
   }//telos else yparxei riza
 }//telos sunarthshs
 
+heapnode maxBinaryHeap::extract(){
+  heapnode to_be_returned(*root); //pairnei ta data tou root
+  if(number_of_nodes == 1){ //mono h riza
+    number_of_nodes--;
+    delete root;
+    root = NULL;
+    latest = NULL;
+    return to_be_returned;
+  }
+  swap_nodes_info(root, latest); //riza ginetai to teleutaio
+  if(latest->parent != NULL){ //den htan riza, thelw na ftiaksw ta pointers swsta
+    if(latest->parent->left == latest) //latest einai aristero paidi
+      latest->parent->left = NULL;
+    else if(latest->parent->right == latest) //latest einai deksi paidi
+      latest->parent->right = NULL;
+    else
+      std::cout << "should never happen :))\n";
+  }
+  delete latest; //katastrefetai o teleutaios komvos (prwhn riza)
+  number_of_nodes--;
+  //paw na enhmerwsw ton deikth latest
+  int * path = new int[maxsize]; //megistos arithmos bits gia to path to last
+  int_to_bin_digit(number_of_nodes, maxsize, path); //twra to outta exei to bitpath poy prepei na akoloythhsw gia ton last kovmo
+  int path_index = 0; //Tha broume thesh most significant bit.prepei na agnohsoume ton prwto asso giati einai h riza
+  for(unsigned int i=0; i<maxsize; i++){
+    if(path[i] == 1){
+      path_index = i+1;
+      break;
+    }
+  }//telos for most significant
+  latest = root;
+  for(unsigned int i= path_index; i<maxsize; i++){
+    if(latest == NULL)
+      std::cout << "should never happen :))\n";
+    if(path[i] == 1) //pame deksia
+      latest = latest->right;
+    else //pame aristera
+      latest = latest->left;
+  }//telos for gia fix tou latest
+  delete[] path;
+  //ARXIZEI SWIMMING DOWN NEAS RIZAS GIA MAINTAIN HEAP PROPERTY
+  heapnode * currnode = root;
+  std::string whattofollow = "tipota";
+  while(true){
+    if((currnode->left == NULL) && (currnode->right == NULL))
+      break; //einai solo riza h fyllo, den exei paidia
+    if(make_decision(currnode) == "tipota") //ola kala, katse st auga sou
+      break;
+    if(make_decision(currnode) == "aristero"){
+      swap_nodes_info(currnode, currnode->left);
+      currnode = currnode->left;
+    }
+    if(make_decision(currnode) == "deksi"){
+      swap_nodes_info(currnode, currnode->right);
+      currnode = currnode->right;
+    }
+  }//telos while gia swimming down, TELOS MAINTAIN HEAP PROPERTY
+  return to_be_returned;
+}//telos sunarthshs
 
 //SUNARTHSEIS HEAPNODE
 //empty constr
@@ -124,19 +207,19 @@ heapnode::heapnode(){
   krousmata = 0;
 }
 
-//constructor gia klhsh apo gonio
-heapnode::heapnode(heapnode * par){
+//copy constructor gia klhsh isws mazi me thn extract
+heapnode::heapnode(const heapnode &par){
   left = NULL;
   right = NULL;
-  parent = par;
-  krousmata = 0;
+  parent = NULL;
+  cat_name = par.cat_name;
+  krousmata = par.krousmata;
 }
 
 //destructor. DOULEUEI ANADROMIKA LOGW DELETE POY STH C++ KALEI TOUS DESTRUCTORS
 heapnode::~heapnode(){
   delete left;
   delete right;
-  delete parent; //isws de xreiastei
 }
 
 
