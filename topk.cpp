@@ -42,6 +42,7 @@ maxBinaryHeap::~maxBinaryHeap(){
 }
 
 //vazei sto heap ena zeugos xwra/astheneia - arithmo krousmatwn
+//DE GINETAI NA EMFANISTEI H IDIA ASTHENEIA/XWRA DYO FORES GIATI INSERT APO HASH TABLE ME KLEIDI AUTO
 void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
   if(root == NULL){ //prwto stoixeio sto heap
     root = new heapnode();
@@ -97,13 +98,19 @@ void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
       }//telos else aristera
     }//telos while gia insert
     delete[] path;
-    //ARXIZEI TO HEAPIFY == SWIMMING UP
+////////MAINTAIN HEAP PROPERTY///////////////////////////////////////////////
+    //ARXIZEI TO MAINTAIN == SWIMMING UP
     currnode = last; //arxizei twra swimming apo katw pros panw
     while(true){
       if(currnode->parent == NULL)
         break; //ftasame riza
-      
-    }//telos while gia swimming up
+      if(currnode->krousmata <= currnode->parent->krousmata) //einai ok ekei poy einai. stop
+        break;
+      else{ //krousmata neou komvou perissotera apo goniou
+        swap_nodes_info(currnode, currnode->parent); //swap metaksu tous
+        currnode = currnode->parent; //sunexizw pros ta panw to swimming
+      }
+    }//telos while gia swimming up, TELOS MAINTAIN HEAP PROPERTY
   }//telos else yparxei riza
 }//telos sunarthshs
 
