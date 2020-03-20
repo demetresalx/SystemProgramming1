@@ -30,8 +30,7 @@ maxBinaryHeap::maxBinaryHeap(){
   number_of_nodes = 0;
 }
 
-maxBinaryHeap::maxBinaryHeap(int total, std::string cat){
-  category = cat;
+maxBinaryHeap::maxBinaryHeap(int total){
   root = NULL;
   number_of_nodes = 0;
   maxsize = total;
@@ -42,21 +41,14 @@ maxBinaryHeap::~maxBinaryHeap(){
   delete root;
 }
 
-//gemizei to heap apo ena bbst
-void maxBinaryHeap::insert_krousma(record * rec){
+//vazei sto heap ena zeugos xwra/astheneia - arithmo krousmatwn
+void maxBinaryHeap::insert(std::string cntdis, int numofkrousmata){
   if(root == NULL){ //prwto stoixeio sto heap
     root = new heapnode();
-    if(category == "disease"){ //an eimaste gia topk_diseases
-      root->cat_name = rec->get_diseaseID();
-      root->krousmata += 1;
-      return;
-    }
-    if(category == "country"){ //an eimaste gia topk_countries
-      root->cat_name = rec->get_country();
-      root->krousmata += 1;
-      return;
-    }
+    root->cat_name = cntdis;
+    root->krousmata = numofkrousmata;
     number_of_nodes++; //anebainei o arithmos komvwn tou heap
+    return;
   }
   else{ //yparxei riza
     //ftiaxnw bitpath. Kanw ton arithmo ths theshs binary kai 1 shmainei deksia, 0 aristera
@@ -184,6 +176,21 @@ int simple_cd_HT::insert_krousma(record * rec){
   }//telos else if country
   return 0;
 }
+
+//gia gemisma heap
+void simple_cd_HT::populate_heap(maxBinaryHeap * heaptr){
+  for(unsigned int i=0; i<size; i++){
+    if(table[i] == NULL)
+      continue; //adeio bucket
+    else{
+      simple_cd_HT_node * currptr = table[i];
+      while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH. MONO MERIKA PEDIA ALLA MPORW KAI OLA
+        heaptr->insert(currptr->cd_name, currptr->krousmata);
+        currptr = currptr->next ;
+      }//telos while gia orizontia lista
+    }//telos else
+  }//telos for
+}//telos sunarthshs
 
 //h mageia ths c++ diagrafei olo to bucketlist gt h delete kalei destructors
 simple_cd_HT_node::~simple_cd_HT_node(){

@@ -335,9 +335,9 @@ void countryHashTable::topk_diseases(int k, std::string country){
         if(*(buroku[i].dis_name_ptr) == country){
           //extract eggrafes apo dentro
           simple_cd_HT simpldiseaseht(buroku[i].totalval, "disease"); //DES README gia topk
-          maxBinaryHeap mheap(buroku[i].totalval, "disease"); //ena maxheap gia krousmata astheneiwn
+          buroku[i].tree_ptr->populate_simpleht(&simpldiseaseht); //twra oi komvoi tou simple ht exoun kathe astheneia sth xwra kai ton arithmo krousmatwn ths
+          maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
           //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
-          buroku[i].tree_ptr->populate_simpleht(&simpldiseaseht);
           return;
         }
       }//telos for gia block

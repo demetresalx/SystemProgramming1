@@ -25,13 +25,12 @@ class maxBinaryHeap{
 public:
   int number_of_nodes; //arithmos komvwn poy exei mesa o heap
   heapnode * root;
-  std::string category; //disease h country
   int maxsize; //iso me to total krousmata ths xwras/astheneias. De ginetai parapanw
 
   maxBinaryHeap();
-  maxBinaryHeap(int , std::string); //kathgoria kai total
+  maxBinaryHeap(int); //total gia maxsize
   ~maxBinaryHeap();
-  void insert_krousma(record *);
+  void insert(std::string , int ); //arrwstia/xwra kai arithmos krousmatwn
 };
 
 //epikourikh klassh
@@ -58,6 +57,7 @@ public:
   ~simple_cd_HT();
 
   int insert_krousma(record * ); //vazei ena record mesa sto HT. HASHING BASEI ID
+  void populate_heap(maxBinaryHeap *); //gemizei to swro poy zhteitai gia to erwthma
 };
 
 //swap periexomenou metaksu 2 heapnodes
