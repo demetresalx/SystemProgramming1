@@ -338,6 +338,12 @@ void countryHashTable::topk_diseases(int k, std::string country){
           buroku[i].tree_ptr->populate_simpleht(&simpldiseaseht); //twra oi komvoi tou simple ht exoun kathe astheneia sth xwra kai ton arithmo krousmatwn ths
           maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
           //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
+          simpldiseaseht.populate_heap(&mheap);
+            std::cout << "Top " << k << " diseases for " << country << " :\n";
+          for(unsigned int ka=0; ka<k; ka++){
+            heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
+            std::cout << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+          }
           return;
         }
       }//telos for gia block
