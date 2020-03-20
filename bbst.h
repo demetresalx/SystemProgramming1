@@ -4,7 +4,7 @@
 #include "utils.h"
 #include <string>
 #include "record.h"
-#include "myheap.h"
+#include "topk.h"
 
 //gia to duplicate date sto dentro : oi komvoi exoun lista apo eggrafes me idio date
 class reclist{
@@ -46,7 +46,7 @@ public:
   int insert_record(record *);
   void print_contents();
   void collect_dated_reclists(BBST* ,std::string , search_containter*); //sunarthsh arwgos erwthmatwn 1 kai 2
-  void populate_heap(maxBinaryHeap *); //gemizei to heap apo ena bbst
+  void populate_simpleht(simple_cd_HT *); //gemizei ton epikouriko ht
 };
 
 

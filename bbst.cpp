@@ -75,22 +75,23 @@ void BBST::collect_dated_reclists(BBST* root,std::string date2, search_containte
   return;
 }
 
-void BBST::populate_heap(maxBinaryHeap * heaptr){
+//gemizei ton simple epikouriko ht gia to topk
+void BBST::populate_simpleht(simple_cd_HT * htptr){
   if(list_of_records == NULL)
     return; //de tha exoun krousmata oute ta paidia an den exei o gonios
   else{ //exoume krousmata
     reclist * currptr = list_of_records;
-    heaptr->insert_krousma(list_of_records->recptr);
+    htptr->insert_krousma(list_of_records->recptr);
     currptr = list_of_records->next;
     while(currptr!= NULL){ //gia na piasei ola ta krousmata
-      heaptr->insert_krousma(currptr->recptr);
+      htptr->insert_krousma(currptr->recptr);
       currptr = currptr->next;
     }//telos while gia reclist
   }//telos else an exoume krousmata
   if(left_child != NULL)//yparxei aristeropaidi
-    left_child->populate_heap(heaptr);
+    left_child->populate_simpleht(htptr);
   if(right_child != NULL) //yparxei deksi paidi
-    right_child->populate_heap(heaptr);
+    right_child->populate_simpleht(htptr);
 
   return;
 }//telos sunarthshs
