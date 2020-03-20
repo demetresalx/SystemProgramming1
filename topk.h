@@ -66,3 +66,5 @@ public:
 void swap_nodes_info(heapnode *, heapnode *);
 //ti na kanw sto swim down
 std::string make_decision(heapnode *);
+//ypsos heap
+int height(int );

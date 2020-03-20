@@ -127,7 +127,8 @@ int main(int argc, char *argv[]){
       }
       else if(requ[0] == "/topk-Diseases"){
           if(ind == 3){ //xwris ta proairetika orismata date1 date2
-            //doulitsa xwris dates
+            int k = stoi(requ[1]); //pairnei thn timh tou k
+            countries_htable.topk_diseases(k, requ[2]);
           }
           else if(ind ==5){ //me proairetika date1 + date2. De ginetai na yparxei to ena xwris to allo
             //me date1 k date2
