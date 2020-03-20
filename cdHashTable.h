@@ -58,12 +58,16 @@ public:
   void numCurrentPatients(std::string );
   void total_recs_for_cat(std::string, std::string , std::string ); //gia to diseaseFrequency xwris orisma country
   void total_recs_for_cat(std::string, std::string , std::string , std::string ); //gia to diseaseFrequency ME orisma country
+  void topk_countries(int , std::string ); //antistoixo erwthma
+  void topk_countries(int , std::string , std::string, std::string ); //antistoixo erwthma me date1 k date2
 };
 
 class countryHashTable : public cdHashTable { //o hash table gia disease
 public:
   countryHashTable(int, int);
   int insert_record(record * );
+  void topk_diseases(int , std::string ); //antistoixo erwthma
+  void topk_diseases(int , std::string , std::string, std::string ); //antistoixo erwthma me date1 k date2
 };
 
 #endif

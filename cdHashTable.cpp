@@ -1,6 +1,5 @@
 #include "cdHashTable.h"
 
-
 cdHashTable::cdHashTable(int sze, int bucketsize){
   size = sze;
   table = new chain_node *[size]; //ena dunamiko array apo deiktes se chain_node (buckets)
@@ -293,7 +292,7 @@ countryHashTable::countryHashTable(int sze, int bucketsize) : cdHashTable(sze, b
 
 //h virtual gia country
 int countryHashTable::insert_record(record* rec){
-  unsigned hval = hash_str(rec->get_country()); //hasharei to diseaseID
+  unsigned hval = hash_str(rec->get_country()); //hasharei to countr
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
   if(table[hval] == NULL){ //ean den yparxei alusida ekei, th ftiaxnoyme
@@ -317,6 +316,36 @@ int countryHashTable::insert_record(record* rec){
 
   return 0;
 }
+
+//gia to antistoixo erwthma
+void countryHashTable::topk_diseases(int k, std::string country){
+  unsigned hval = hash_str(country); //hasharei to country
+  hval = hval % size; //gia na pame sth swsth thesh pinaka
+  if(table[hval] == NULL){ //ean den yparxei alusida ekei, den yparxei h xwra
+    std::cout << "Country specified does not exist (yet).\n";
+    return;
+  }
+  else{ //h xwra yparxei
+    chain_node * currptr = table[hval];
+    while(currptr!= NULL){ //to psaxnei dieksodika wste na brethei h xwra
+      block_entry * buroku = currptr->block;
+      for(unsigned int i=0; i< currptr->block_size; i++){
+        if(buroku[i].dis_name_ptr == NULL)
+          continue;
+        if(*(buroku[i].dis_name_ptr) == country){
+          //extract oles eggrafes apo dentro
+          maxBinaryHeap mheap("disease", buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
+          //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
+          buroku[i].tree_ptr->populate_heap(&mheap);
+          return;
+        }
+      }//telos for gia block
+      currptr = currptr->next ;
+    }//telos while gia orizontia lista
+
+  }//telos while
+  std::cout << "Country specified does not exist (yet).\n";
+}//telos sunarthshs
 
 
 

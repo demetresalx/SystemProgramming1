@@ -8,7 +8,7 @@
 #include "record_HT.h"
 #include "utils.h"
 #include "cdHashTable.h"
-#include "myheap.h"
+
 
 
 int main(int argc, char *argv[]){
@@ -234,5 +234,8 @@ int main(int argc, char *argv[]){
   //records_htable.print_contents();
   //diseases_htable.print_contents();
   //countries_htable.print_contents();
+  /*int out[8];
+  int_to_bin_digit(12, 4, out);
+  std::cout << out[0] << out[1] << out[2] << out[3];*/
   return 0;
 }
