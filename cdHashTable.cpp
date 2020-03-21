@@ -285,6 +285,46 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
   return;
 }
 
+void diseaseHashTable::topk_countries(int k, std::string disease){
+  unsigned hval = hash_str(disease); //hasharei to country
+  hval = hval % size; //gia na pame sth swsth thesh pinaka
+  if(table[hval] == NULL){ //ean den yparxei alusida ekei, den yparxei h xwra
+    std::cout << "Disease specified does not exist (yet).\n";
+    return;
+  }
+  else{ //h xwra yparxei
+    chain_node * currptr = table[hval];
+    while(currptr!= NULL){ //to psaxnei dieksodika wste na brethei h xwra
+      block_entry * buroku = currptr->block;
+      for(unsigned int i=0; i< currptr->block_size; i++){
+        if(buroku[i].dis_name_ptr == NULL)
+          continue;
+        if(*(buroku[i].dis_name_ptr) == disease){
+          //extract eggrafes apo dentro
+          simple_cd_HT simplcntht(buroku[i].totalval, "country"); //DES README gia topk
+          buroku[i].tree_ptr->populate_simpleht(&simplcntht); //twra oi komvoi tou simple ht exoun kathe astheneia sth xwra kai ton arithmo krousmatwn ths
+          maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
+          //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
+          simplcntht.populate_heap(&mheap);
+          std::cout << "Top " << k << " countries for " << disease << " :\n";
+          for(unsigned int ka=0; ka<k; ka++){
+            if(mheap.root == NULL){
+              std::cout << "-\n"; //de ginontai alla extractions.
+              continue;
+            }
+            heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
+            std::cout << ka+1<< ") " << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+          }
+          return;
+        }
+      }//telos for gia block
+      currptr = currptr->next ;
+    }//telos while gia orizontia lista
+
+  }//telos else
+  std::cout << "Disease specified does not exist (yet).\n";
+}
+
 //COUNTRY
 //derived parametrized constructor
 countryHashTable::countryHashTable(int sze, int bucketsize) : cdHashTable(sze, bucketsize){
@@ -339,7 +379,7 @@ void countryHashTable::topk_diseases(int k, std::string country){
           maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
           //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
           simpldiseaseht.populate_heap(&mheap);
-            std::cout << "Top " << k << " diseases for " << country << " :\n";
+          std::cout << "Top " << k << " diseases for " << country << " :\n";
           for(unsigned int ka=0; ka<k; ka++){
             if(mheap.root == NULL){
               std::cout << "-\n"; //de ginontai alla extractions.
@@ -354,7 +394,7 @@ void countryHashTable::topk_diseases(int k, std::string country){
       currptr = currptr->next ;
     }//telos while gia orizontia lista
 
-  }//telos while
+  }//telos else
   std::cout << "Country specified does not exist (yet).\n";
 }//telos sunarthshs
 
