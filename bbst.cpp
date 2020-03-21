@@ -181,6 +181,10 @@ int search_containter::count_exit_limit(std::string date1){
       else if(dates_compare(currptr->recptr->get_exitDate(), date1) == "bigger" ){
         num_approved++; //exei exitdate megalutero tou date1, to theloyme
       }
+      else if(dates_compare(currptr->recptr->get_exitDate(), date1) == "equal" ){
+        if(dates_compare(currptr->recptr->get_entryDate(), date1) == "equal" )
+          num_approved++; //vazei kai autous poy mphkan kai bghkan thn idia mera an to exitdate einai iso me date1
+      }
       else
         num_approved += 0;
       currptr = currptr->next;
@@ -202,6 +206,10 @@ int search_containter::count_exit_limit(std::string date1, std::string country){
       else if((dates_compare(currptr->recptr->get_exitDate(), date1) == "bigger" )&& (currptr->recptr->get_country() == country)){ //koitame kai xwra pleon
         num_approved++; //exei exitdate megalutero tou date1, to theloyme
       }
+      else if((dates_compare(currptr->recptr->get_exitDate(), date1) == "equal" ) && (currptr->recptr->get_country() == country)){
+        if(dates_compare(currptr->recptr->get_entryDate(), date1) == "equal" )
+          num_approved++; //vazei kai autous poy mphkan kai bghkan thn idia mera an to exitdate einai iso me date1
+      }
       else
         num_approved += 0;
       currptr = currptr->next;
@@ -209,3 +217,28 @@ int search_containter::count_exit_limit(std::string date1, std::string country){
   }//telos for gia thn i lista
   return num_approved;
 }//telos sunarthshs
+
+//disqualify tis exitdate <= date1 kai eisodos se simpleht gia topk
+void search_containter::populate_simpleht(simple_cd_HT *htptr, std::string date1){
+  int num_approved =0;
+  for(unsigned int i=0; i<index; i++){
+    if(arr[i] == NULL) //oi eisagwges ginontai h mia meta thn allh ksekinwntas apo to 0. to prwto null shmainei den exei alles
+      return;
+    reclist * currptr = arr[i];
+    while(currptr != NULL){
+      if(currptr->recptr->get_exitDate() == "-") //einai akoma mesa. ton theloyme
+        htptr->insert_krousma(currptr->recptr);
+      else if(dates_compare(currptr->recptr->get_exitDate(), date1) == "bigger" ){
+        htptr->insert_krousma(currptr->recptr); //exei exitdate megalutero tou date1, to theloyme
+      }
+      else if(dates_compare(currptr->recptr->get_exitDate(), date1) == "equal" ){
+        if(dates_compare(currptr->recptr->get_entryDate(), date1) == "equal" )
+          htptr->insert_krousma(currptr->recptr); //vazei kai autous poy mphkan kai bghkan thn idia mera an to exitdate einai iso me date1
+      }
+      else
+        num_approved += 0;
+      currptr = currptr->next;
+    }//telos while gia lista eggrafwn
+  }//telos for gia thn i lista
+  return;
+}

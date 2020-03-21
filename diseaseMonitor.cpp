@@ -131,7 +131,16 @@ int main(int argc, char *argv[]){
             countries_htable.topk_diseases(k, requ[2]);
           }
           else if(ind ==5){ //me proairetika date1 + date2. De ginetai na yparxei to ena xwris to allo
-            //me date1 k date2
+            if((dates_compare(requ[3], requ[4]) != "smaller") && (dates_compare(requ[2], requ[3]) != "equal") ){ //kakws orismeno date
+              std::cout << "Date1 must be earlier or equal to Date2 or bad date\n";
+              continue;
+            }
+            if((requ[3] == "-") || requ[4]== "-"){
+              std::cout << "Date1 and Date2 can't be - , it's supposed to be an INTERVAL\n";
+              continue;
+            }
+            int k = stoi(requ[1]); //pairnei thn timh tou k
+            countries_htable.topk_diseases(k, requ[2], requ[3], requ[4]); //me date1 date2
           }
           else
             std::cout << "Lathos sta orismata. try again...\n";
@@ -142,7 +151,16 @@ int main(int argc, char *argv[]){
             diseases_htable.topk_countries(k, requ[2]);
           }
           else if(ind ==5){ //me proairetika date1 + date2. De ginetai na yparxei to ena xwris to allo
-            //me date1 k date2
+            if((dates_compare(requ[3], requ[4]) != "smaller") && (dates_compare(requ[2], requ[3]) != "equal") ){ //kakws orismeno date
+              std::cout << "Date1 must be earlier or equal to Date2 or bad date\n";
+              continue;
+            }
+            if((requ[3] == "-") || requ[4]== "-"){
+              std::cout << "Date1 and Date2 can't be - , it's supposed to be an INTERVAL\n";
+              continue;
+            }
+            int k = stoi(requ[1]); //pairnei thn timh tou k
+            diseases_htable.topk_countries(k, requ[2], requ[3], requ[4]); //me date1 date2
           }
           else
             std::cout << "Lathos sta orismata. try again...\n";

@@ -285,6 +285,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
   return;
 }
 
+//gia topk XWRIS date1 date2
 void diseaseHashTable::topk_countries(int k, std::string disease){
   unsigned hval = hash_str(disease); //hasharei to country
   hval = hval % size; //gia na pame sth swsth thesh pinaka
@@ -303,8 +304,8 @@ void diseaseHashTable::topk_countries(int k, std::string disease){
           //extract eggrafes apo dentro
           simple_cd_HT simplcntht(buroku[i].totalval, "country"); //DES README gia topk
           buroku[i].tree_ptr->populate_simpleht(&simplcntht); //twra oi komvoi tou simple ht exoun kathe astheneia sth xwra kai ton arithmo krousmatwn ths
-          maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
-          //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
+          maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata xwrwn
+          //gemizei o swros apo to dentro twn krousmatwn auths ths astheneias
           simplcntht.populate_heap(&mheap);
           std::cout << "Top " << k << " countries for " << disease << " :\n";
           for(unsigned int ka=0; ka<k; ka++){
@@ -323,7 +324,55 @@ void diseaseHashTable::topk_countries(int k, std::string disease){
 
   }//telos else
   std::cout << "Disease specified does not exist (yet).\n";
-}
+}//telos sunarthshs
+
+
+//gia topk ME date1 date2
+void diseaseHashTable::topk_countries(int k, std::string disease, std::string date1, std::string date2){
+  unsigned hval = hash_str(disease); //hasharei to country
+  hval = hval % size; //gia na pame sth swsth thesh pinaka
+  if(table[hval] == NULL){ //ean den yparxei alusida ekei, den yparxei h xwra
+    std::cout << "Disease specified does not exist (yet).\n";
+    return;
+  }
+  else{ //h xwra yparxei
+    chain_node * currptr = table[hval];
+    while(currptr!= NULL){ //to psaxnei dieksodika wste na brethei h xwra
+      block_entry * buroku = currptr->block;
+      for(unsigned int i=0; i< currptr->block_size; i++){
+        if(buroku[i].dis_name_ptr == NULL)
+          continue;
+        if(*(buroku[i].dis_name_ptr) == disease){
+          //extract eggrafes apo dentro
+          simple_cd_HT simplcntht(buroku[i].totalval, "country"); //DES README gia topk
+          search_containter querycontainer(buroku[i].totalval); //to megisto plhthos eggrafwn einai o sunolikos arithmos eggrafwn auths ths atheneias/xwras
+          //me thn apo katw entolh o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2.
+          buroku[i].tree_ptr->collect_dated_reclists(buroku[i].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
+          //twra gia date 1:disqualify dates passing date2 test but not date1 and pass them to simpleht
+          querycontainer.populate_simpleht(&simplcntht, date1); //twra oi komvoi tou simple ht exoun kathe astheneia sth xwra kai ton arithmo krousmatwn ths kai me ta swsta dates
+          maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata xwrwn
+          //gemizei o swros apo to dentro twn krousmatwn auths ths arrwstias
+          simplcntht.populate_heap(&mheap);
+          std::cout << "Top " << k << " countries for " << disease << " for dates provided:\n";
+          for(unsigned int ka=0; ka<k; ka++){
+            if(mheap.root == NULL){
+              std::cout << "-\n"; //de ginontai alla extractions.
+              continue;
+            }
+            heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
+            std::cout << ka+1<< ") " << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+          }
+          return;
+        }
+      }//telos for gia block
+      currptr = currptr->next ;
+    }//telos while gia orizontia lista
+
+  }//telos else
+  std::cout << "Disease specified does not exist (yet).\n";
+}//telos sunarthshs
+
+
 
 //COUNTRY
 //derived parametrized constructor
@@ -357,7 +406,7 @@ int countryHashTable::insert_record(record* rec){
   return 0;
 }
 
-//gia to antistoixo erwthma
+//gia to antistoixo erwthma XWRIS date1 date2
 void countryHashTable::topk_diseases(int k, std::string country){
   unsigned hval = hash_str(country); //hasharei to country
   hval = hval % size; //gia na pame sth swsth thesh pinaka
@@ -390,6 +439,51 @@ void countryHashTable::topk_diseases(int k, std::string country){
           }
           return;
         }
+      }//telos for gia block
+      currptr = currptr->next ;
+    }//telos while gia orizontia lista
+
+  }//telos else
+  std::cout << "Country specified does not exist (yet).\n";
+}//telos sunarthshs
+
+//gia to antistoixo erwthmata ME date1 date2
+void countryHashTable::topk_diseases(int k, std::string country, std::string date1, std::string date2){
+  unsigned hval = hash_str(country); //hasharei to country
+  hval = hval % size; //gia na pame sth swsth thesh pinaka
+  if(table[hval] == NULL){ //ean den yparxei alusida ekei, den yparxei h xwra
+    std::cout << "Country specified does not exist (yet).\n";
+    return;
+  }
+  else{ //h xwra yparxei
+    chain_node * currptr = table[hval];
+    while(currptr!= NULL){ //to psaxnei dieksodika wste na brethei h xwra
+      block_entry * buroku = currptr->block;
+      for(unsigned int i=0; i< currptr->block_size; i++){
+        if(buroku[i].dis_name_ptr == NULL)
+          continue;
+        if(*(buroku[i].dis_name_ptr) == country){
+          //extract eggrafes apo dentro
+          simple_cd_HT simpldiseaseht(buroku[i].totalval, "disease"); //DES README gia topk
+          search_containter querycontainer(buroku[i].totalval); //to megisto plhthos eggrafwn einai o sunolikos arithmos eggrafwn auths ths atheneias/xwras
+          //me thn apo katw entolh o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2.
+          buroku[i].tree_ptr->collect_dated_reclists(buroku[i].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
+          //twra gia date 1:disqualify dates passing date2 test but not date1 and pass them to simpleht
+          querycontainer.populate_simpleht(&simpldiseaseht, date1); //twra oi komvoi tou simple ht exoun kathe astheneia sth xwra kai ton arithmo krousmatwn ths kai me ta swsta dates
+          maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
+          //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
+          simpldiseaseht.populate_heap(&mheap);
+          std::cout << "Top " << k << " diseases for " << country << " for dates provided :\n";
+          for(unsigned int ka=0; ka<k; ka++){
+            if(mheap.root == NULL){
+              std::cout << "-\n"; //de ginontai alla extractions.
+              continue;
+            }
+            heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
+            std::cout << ka+1<< ") " << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+          }//telos for ektypwshs topk
+          return;
+        }//telos if brethhke xwra
       }//telos for gia block
       currptr = currptr->next ;
     }//telos while gia orizontia lista
