@@ -210,10 +210,10 @@ int main(int argc, char *argv[]){
       }
       else if(requ[0] == "/recordPatientExit"){
           if(ind == 3){
-            /*if(requ[2] == "-"){
-              std::cout << "You can't insert a - exit date. Doesn't make sense in the same record\n";
+            if(requ[2] == "-"){
+              std::cout << "You can't insert a - exit date. Piazza said so\n";
               continue;
-            }*/
+            }
             if(is_date_ok(requ[2]) == false){
               std::cout << "bad date defined\n";
               continue;

@@ -223,7 +223,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
   if(table[hval] == NULL){ //Auth h periptwsh de tha ginei pote sthn askhsh
-    std::cout << "Den yparxei h arrwstia/xwra (akoma)\n";
+    std::cout << "For " << diseasename << " : there are " << 0 << " patients recorded within dates provided\n";
     return;
   }
   else{
@@ -247,7 +247,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
     }//telos while gia orizontia lista
 
   }//telos else
-  std::cout << "De bre8hke h arrwstia\n";
+  std::cout << "For " << diseasename << " : there are " << 0 << " patients recorded within dates provided\n";
   return;
 }
 
@@ -257,7 +257,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
   if(table[hval] == NULL){ //Auth h periptwsh de tha ginei pote sthn askhsh
-    std::cout << "Den yparxei h arrwstia/xwra (akoma)\n";
+    std::cout << "For " << diseasename << " : there are " << 0 << " patients recorded within dates provided\n";
     return;
   }
   else{
@@ -281,7 +281,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
     }//telos while gia orizontia lista
 
   }//telos else
-  std::cout << "De bre8hke h arrwstia\n";
+  std::cout << "For " << diseasename << " : there are " << 0 << " patients recorded within dates provided\n";
   return;
 }
 
