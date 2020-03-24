@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
   std::string line; //EPITREPETAI H STRING EIPAN STO PIAZZA
   while (std::getline(infile, line)){ //read file
     //https://stackoverflow.com/questions/49201654/splitting-a-string-with-multiple-delimiters-in-c
-    std::string const delims{ " \t," }; //delimiters einai ta: space,tab,comma. TELOS.
+    std::string const delims{ " \t,\r" }; //delimiters einai ta: space,tab,comma kai carriage return. TELOS.
     size_t beg, pos = 0;
     int params_count =0;
     std::string record_parts[7]; //mia thesi gia kathe melos tou record wste na ta valw eukola se object meta
