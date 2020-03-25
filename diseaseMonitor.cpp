@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
   std::string line; //EPITREPETAI H STRING EIPAN STO PIAZZA
   while (std::getline(infile, line)){ //read file
     //https://stackoverflow.com/questions/49201654/splitting-a-string-with-multiple-delimiters-in-c
-    std::string const delims{ " \t,\r" }; //delimiters einai ta: space,tab,comma kai carriage return. TELOS.
+    std::string const delims{ " \t,\r\n" }; //delimiters einai ta: space,tab,comma kai carriage return. TELOS.
     size_t beg, pos = 0;
     int params_count =0;
     std::string record_parts[7]; //mia thesi gia kathe melos tou record wste na ta valw eukola se object meta
@@ -74,11 +74,14 @@ int main(int argc, char *argv[]){
     if(line == "/exit")
       break; //olh h desmeumenh mnhmh apodesmeuetai mesw paneksupna sxediasmenwn destructors. Des se kathe class
     else{
+      std::string const delims{ " \t,\r\n" }; //delimiters einai ta: space,tab,comma kai carriage return. TELOS.
+      size_t beg, pos = 0;
       std::string requ[12]; //o arithmos orismatwn einai sugkekrimenos gia sugkekrimenes entoles opote de mas noiazei to orio
-      std::stringstream check1(line);
       int ind=0; //arithmos orismatwn + tou onomatos entolhs
-      while(getline(check1, requ[ind] , ' ')) { //DELIMITER EINAI TO KENO. TELOS
-        ind++;
+      while ((beg = line.find_first_not_of(delims, pos)) != std::string::npos){
+          pos = line.find_first_of(delims, beg + 1);
+          requ[ind] = line.substr(beg, pos - beg);
+          ind++;
       }//telos while eksagwghs gnwrismatwn apo entolh
       if(requ[0] == "/globalDiseaseStats"){
           if(ind == 1){ //xwris ta proairetika date1 k date2
@@ -254,8 +257,5 @@ int main(int argc, char *argv[]){
   //records_htable.print_contents();
   //diseases_htable.print_contents();
   //countries_htable.print_contents();
-  /*int out[8];
-  int_to_bin_digit(12, 4, out);
-  std::cout << out[0] << out[1] << out[2] << out[3];*/
   return 0;
 }
