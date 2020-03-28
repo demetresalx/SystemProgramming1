@@ -60,13 +60,13 @@ void cdHashTable::total_recs_per_cat(){
       else{
         chain_node * currptr = table[i];
         block_entry * buroku = NULL;
-        while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH. MONO MERIKA PEDIA ALLA MPORW KAI OLA
+        while(currptr!= NULL){ //paei sto teleutaio. ENDEIKTIKH EKTYPWSH.
           buroku = currptr->block;
           for(unsigned int j=0; j<currptr->block_size; j++){
             if(buroku[j].dis_name_ptr == NULL) //no entry edw
               continue;
             else{
-              std::cout << "For " << *(buroku[j].dis_name_ptr) << " : there are " << buroku[j].totalval << " patients recorded\n";
+              std::cout << *(buroku[j].dis_name_ptr) << " " << buroku[j].totalval << "\n";
               tototal += buroku[j].totalval;
             }
           }//telos for gia block
@@ -74,7 +74,7 @@ void cdHashTable::total_recs_per_cat(){
         }//telos while gia orizontia lista
       }//telos else kenhs alusidas
     }//telos for gia kathe alusida
-    std::cout << "A total of " << tototal << " patients recorded.\n";
+    //std::cout << "A total of " << tototal << " patients recorded.\n";
   }//telos if genikh periptwsh
 
 }//telos sunarthshs
@@ -99,7 +99,7 @@ void cdHashTable::total_recs_per_cat(std::string date1, std::string date2){
               //twra o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2. H parakatw entolh ftiaxnei kai thn allh proypothesh
               buroku[j].tree_ptr->collect_dated_reclists(buroku[j].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
               int number_to_present = querycontainer.count_exit_limit(date1);
-              std::cout << "For " << *(buroku[j].dis_name_ptr) << " : there are " << number_to_present << " patients recorded within dates provided\n";
+              std::cout << *(buroku[j].dis_name_ptr) << " " << number_to_present << "\n";
               tototal += number_to_present;
             }
           }//telos for gia block
@@ -108,7 +108,7 @@ void cdHashTable::total_recs_per_cat(std::string date1, std::string date2){
       }//telos else kenhs alusidas
     }//telos for gia kathe alusida
   //telos if genikh periptwsh
-  std::cout << "A total of " << tototal << " patients recorded within dates provided.\n";
+  //std::cout << "A total of " << tototal << " patients recorded within dates provided.\n";
 }//telos sunarthshs
 
 
@@ -180,7 +180,7 @@ void diseaseHashTable::numCurrentPatients(std::string disease){
             if(buroku[j].dis_name_ptr == NULL) //no entry edw
               continue;
             else{
-              std::cout << "For disease : " << *(buroku[j].dis_name_ptr) << " there are " << buroku[j].currval << " patients still in hospital\n";
+              std::cout << *(buroku[j].dis_name_ptr) << " " << buroku[j].currval << "\n";
               curtotal += buroku[j].currval ;
             }
           }//telos for gia block
@@ -188,13 +188,14 @@ void diseaseHashTable::numCurrentPatients(std::string disease){
         }//telos while gia orizontia lista
       }//telos else kenhs alusidas
     }//telos for gia kathe alusida
-    std::cout << "A total of " << curtotal << " patients still in hospital\n";
+    //std::cout << "A total of " << curtotal << " patients still in hospital\n";
   }//telos if genikh periptwsh
   else{
     unsigned hv = hash_str(disease); //hasharei to onoma ths
     hv = hv % size; //gia thesh pinaka
     if(table[hv] == NULL){  //kenh alusida
-      std::cout << "Disease specified does not exist.\n";
+      //std::cout << "Disease specified does not exist.\n";
+      std::cout << disease << " " << 0 << "\n";
       return;
     }
     else{ //h alusida den ein adeia
@@ -206,14 +207,14 @@ void diseaseHashTable::numCurrentPatients(std::string disease){
           if(buroku[j].dis_name_ptr == NULL) //no entry edw
             continue;
           if(*(buroku[j].dis_name_ptr) == disease){
-            std::cout << "For disease : " << *(buroku[j].dis_name_ptr) << " there are " <<buroku[j].currval << " patients still in hospital\n";
+            std::cout << *(buroku[j].dis_name_ptr) << " " <<buroku[j].currval << "\n";
             return;
           }
         }//telos for gia block
         currptr = currptr->next ;
       }//telos while gia orizontia lista
     }//telos else kenhs alusidas
-    std::cout << "Disease specified does not exist.\n";
+    std::cout << disease << " " << 0 << "\n";
   }//telos else periptwshs poy exoume orisma disease
 }//telos sunarthshs
 
@@ -223,7 +224,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
   if(table[hval] == NULL){ //Auth h periptwsh de tha ginei pote sthn askhsh
-    std::cout << "For " << diseasename << " : there are " << 0 << " patients recorded within dates provided\n";
+    std::cout <<  diseasename << " " << 0 << "\n";
     return;
   }
   else{
@@ -239,7 +240,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
           //twra o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2. H parakatw entolh ftiaxnei kai thn allh proypothesh
           buroku[i].tree_ptr->collect_dated_reclists(buroku[i].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
           int number_to_present = querycontainer.count_exit_limit(date1);
-          std::cout << "For " << *(buroku[i].dis_name_ptr) << " : there are " << number_to_present << " patients recorded within dates provided\n";
+          std::cout << *(buroku[i].dis_name_ptr) << " " << number_to_present << "\n";
           return;
         }
       }//telos for gia block
@@ -247,7 +248,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
     }//telos while gia orizontia lista
 
   }//telos else
-  std::cout << "For " << diseasename << " : there are " << 0 << " patients recorded within dates provided\n";
+  std::cout << diseasename << " " << 0 << "\n";
   return;
 }
 
@@ -257,7 +258,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
   hval = hval % size; //gia na pame sth swsth thesh pinaka
 
   if(table[hval] == NULL){ //Auth h periptwsh de tha ginei pote sthn askhsh
-    std::cout << "For " << diseasename << " : there are " << 0 << " patients recorded within dates provided\n";
+    std::cout << diseasename << " " << 0 << "\n";
     return;
   }
   else{
@@ -273,7 +274,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
           //twra o container exei oles tis eggrafes ths astheneias/xwras me entrydate <= date2. H parakatw entolh ftiaxnei kai thn allh proypothesh
           buroku[i].tree_ptr->collect_dated_reclists(buroku[i].tree_ptr, date2, &querycontainer); //o container exei tis eggrafes gia authn thn astheneia/xwra me entrydate <= Date2. Ekmetalleuetai th dendrikh domh gia kalyterh polyplokothta
           int number_to_present = querycontainer.count_exit_limit(date1, country);
-          std::cout << "For " << *(buroku[i].dis_name_ptr) << " in " << country << " : there are " << number_to_present << " patients recorded within dates provided\n";
+          std::cout << *(buroku[i].dis_name_ptr) << " " << number_to_present << "\n";
           return;
         }
       }//telos for gia block
@@ -281,7 +282,7 @@ void diseaseHashTable::total_recs_for_cat(std::string diseasename, std::string d
     }//telos while gia orizontia lista
 
   }//telos else
-  std::cout << "For " << diseasename << " : there are " << 0 << " patients recorded within dates provided\n";
+  std::cout <<  diseasename << " " << 0 << "\n";
   return;
 }
 
@@ -307,14 +308,14 @@ void diseaseHashTable::topk_countries(int k, std::string disease){
           maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata xwrwn
           //gemizei o swros apo to dentro twn krousmatwn auths ths astheneias
           simplcntht.populate_heap(&mheap);
-          std::cout << "Top " << k << " countries for " << disease << " :\n";
+          //std::cout << "Top " << k << " countries for " << disease << " :\n";
           for(unsigned int ka=0; ka<k; ka++){
             if(mheap.root == NULL){
-              std::cout << "-\n"; //de ginontai alla extractions.
+              //std::cout << "-\n"; //de ginontai alla extractions.
               continue;
             }
             heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
-            std::cout << ka+1<< ") " << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+            std::cout << ophelia.cat_name << " " << ophelia.krousmata << "\n";
           }
           return;
         }
@@ -353,14 +354,14 @@ void diseaseHashTable::topk_countries(int k, std::string disease, std::string da
           maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata xwrwn
           //gemizei o swros apo to dentro twn krousmatwn auths ths arrwstias
           simplcntht.populate_heap(&mheap);
-          std::cout << "Top " << k << " countries for " << disease << " for dates provided:\n";
+          //std::cout << "Top " << k << " countries for " << disease << " for dates provided:\n";
           for(unsigned int ka=0; ka<k; ka++){
             if(mheap.root == NULL){
-              std::cout << "-\n"; //de ginontai alla extractions.
+              //std::cout << "-\n"; //de ginontai alla extractions.
               continue;
             }
             heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
-            std::cout << ka+1<< ") " << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+            std::cout << ophelia.cat_name << " " << ophelia.krousmata << "\n";
           }
           return;
         }
@@ -428,14 +429,14 @@ void countryHashTable::topk_diseases(int k, std::string country){
           maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
           //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
           simpldiseaseht.populate_heap(&mheap);
-          std::cout << "Top " << k << " diseases for " << country << " :\n";
+          //std::cout << "Top " << k << " diseases for " << country << " :\n";
           for(unsigned int ka=0; ka<k; ka++){
             if(mheap.root == NULL){
-              std::cout << "-\n"; //de ginontai alla extractions.
+              //std::cout << "-\n"; //de ginontai alla extractions.
               continue;
             }
             heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
-            std::cout << ka+1<< ") " << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+            std::cout << ophelia.cat_name << " " << ophelia.krousmata << "\n";
           }
           return;
         }
@@ -473,14 +474,14 @@ void countryHashTable::topk_diseases(int k, std::string country, std::string dat
           maxBinaryHeap mheap(buroku[i].totalval); //ena maxheap gia krousmata astheneiwn
           //gemizei o swros apo to dentro twn krousmatwn auths ths xwras
           simpldiseaseht.populate_heap(&mheap);
-          std::cout << "Top " << k << " diseases for " << country << " for dates provided :\n";
+          //std::cout << "Top " << k << " diseases for " << country << " for dates provided :\n";
           for(unsigned int ka=0; ka<k; ka++){
             if(mheap.root == NULL){
-              std::cout << "-\n"; //de ginontai alla extractions.
+              //std::cout << "-\n"; //de ginontai alla extractions.
               continue;
             }
             heapnode ophelia(mheap.extract() ); //eksagwgh rizas apo swro kai diathrhsh
-            std::cout << ka+1<< ") " << ophelia.cat_name << " : " << ophelia.krousmata << " cases recorded.\n";
+            std::cout << ophelia.cat_name << " " << ophelia.krousmata << "\n";
           }//telos for ektypwshs topk
           return;
         }//telos if brethhke xwra

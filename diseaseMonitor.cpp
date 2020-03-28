@@ -71,8 +71,10 @@ int main(int argc, char *argv[]){
   std::cout << "Data ready. Start giving commands!\n";
   while(getline(std::cin, line)){
     //getline(std::cin, line); //diabazei grammh apo keyboard
-    if(line == "/exit")
+    if(line == "/exit"){
+      std::cout << "exiting\n";
       break; //olh h desmeumenh mnhmh apodesmeuetai mesw paneksupna sxediasmenwn destructors. Des se kathe class
+    }
     else{
       std::string const delims{ " \t,\r\n" }; //delimiters einai ta: space,tab,comma kai carriage return. TELOS.
       size_t beg, pos = 0;
@@ -189,7 +191,7 @@ int main(int argc, char *argv[]){
             }
             diseases_htable.insert_record(new_rec_ptr); //eisagwgh ston dis HT
             countries_htable.insert_record(new_rec_ptr); //eisagwgh ston countries HT
-
+            std::cout << "Record added\n";
           }
           else if(ind == 8){ //me exitdate
             std::string tat[7];
@@ -206,7 +208,7 @@ int main(int argc, char *argv[]){
             }
             diseases_htable.insert_record(new_rec_ptr); //eisagwgh ston dis HT
             countries_htable.insert_record(new_rec_ptr); //eisagwgh ston countries HT
-
+            std::cout << "Record added\n";
           }
           else
             std::cout << "Lathos sta orismata. try again...\n";
@@ -224,13 +226,14 @@ int main(int argc, char *argv[]){
             std::string dowithcurr = "tipota";
             record * the_rec = records_htable.recordPatientExit(requ[1], requ[2], &dowithcurr);
             if( the_rec == NULL){
-              std::cout << "Error:Date given earlier than existing entryDate\n";
-              std::cout << "OR record does not exist (yet).\n";
+              //std::cout << "Error:Date given earlier than existing entryDate\n";
+              std::cout << "Not found\n";
               continue;
             }
             if((dowithcurr == "increase") || (dowithcurr == "decrease")){ //ean dhladh htan asthenhs ektos nosokomeiou hdh (non - se exitdate) mhn enhmerwseis metrhth
               diseases_htable.recordPatientExit(the_rec->get_diseaseID(), dowithcurr); //enhmerwnei ton metrhth curr gia disease
               countries_htable.recordPatientExit(the_rec->get_country(), dowithcurr); //enhmerwnei k to metrhth curr gia xwra
+              std::cout << "Record updated\n";
             }
 
 
